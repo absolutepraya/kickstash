@@ -18,12 +18,12 @@ URL to deployed app via PWS:
     a. Pertama, saya membuat proyek Django baru dengan perintah `django-admin startproject kickstash .`. Kemudian, saya melakukan _routing_ pada proyek tersebut agar dapat menjalankan aplikasi `main` dengan menambahkan path `/` ke `urls.py` proyek.
 
     ```python
-    from django.urls import path
-    from main import views
+	from django.urls import path
+	from main import views
 
-    urlpatterns = [
-        path('', views.show_main, name='show_main'),
-    ]
+	urlpatterns = [
+		path('', views.show_main, name='show_main'),
+	]
     ```
 
     b. Selanjutnya, saya membuat aplikasi baru dengan perintah `python3 manage.py startapp main`.
@@ -31,12 +31,12 @@ URL to deployed app via PWS:
     c. Kemudian, saya membuat model `Product` di `models.py` dengan atribut `name`, `price`, dan `description`.
 
     ```python
-    from django.db import models
+	from django.db import models
 
-    class Product(models.Model):
-        name = models.CharField(max_length=100)
-        price = models.DecimalField(max_digits=10, decimal_places=2)
-        description = models.TextField()
+	class Product(models.Model):
+		name = models.CharField(max_length=100)
+		price = models.DecimalField(max_digits=10, decimal_places=2)
+		description = models.TextField()
     ```
 
     Untuk sekarang, model ini belum mulai digunakan.
@@ -46,18 +46,18 @@ URL to deployed app via PWS:
     e. Setelah HTML utama selesai, saya membuat fungsi `show_main` di `views.py` yang akan mengembalikan _response_ berupa _template_ HTML yang menampilkan nama aplikasi dan nama serta kelas saya.
 
     ```python
-    from django.shortcuts import render
-    from .models import Product
+	from django.shortcuts import render
+	from .models import Product
 
-    def show_main(request):
-        # Prepare pre-made context
-        context = {
-            'name': 'Birkenstock Boston',
-            'price': 2599000,
-            'description': 'Birkenstock Boston adalah sandal yang nyaman digunakan untuk berbagai aktivitas.'
-        }
+	def show_main(request):
+		# Prepare pre-made context
+		context = {
+            'name': 'Birkenstock Boston',	
+			'price': 2599000,
+			'description': 'Birkenstock Boston adalah sandal yang nyaman digunakan untuk berbagai aktivitas.'
+		}
 
-        return render(request, 'main.html', context)
+    	return render(request, 'main.html', context)
     ```
 
     f. Selanjutnya, saya membuat _routing_ pada `urls.py` aplikasi `main` untuk membuat _path_ yang memetakan fungsi yang telah dibuat pada `views.py`.
