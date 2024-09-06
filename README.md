@@ -1,71 +1,144 @@
 # KickStash
 
-URL to deployed app via PWS:
+-   [URLs](#URLs)
+-   [Pertanyaan dan Jawaban](#Pertanyaan-dan-Jawaban)
+-   [Checklist Tugas](#Checklist-Tugas)
+
+## URLs
+
+URL to deployed app via PWS:  
 (Soon)
 
 ## Pertanyaan dan Jawaban
 
-1. Jelaskan bagaimana cara kamu mengimplementasikan *checklist* di atas secara *step-by-step* (bukan hanya sekadar mengikuti tutorial).
+1. Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
 
-    ***Jawab***:  
-    *(belum dijawab)*
+    **_Jawab_**:
 
-2. Buatlah bagan yang berisi *request client* ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara `urls.py`, `views.py`, `models.py`, dan berkas `html`.
+    a. Pertama, saya membuat proyek Django baru dengan perintah `django-admin startproject kickstash .`. Kemudian, saya melakukan _routing_ pada proyek tersebut agar dapat menjalankan aplikasi `main` dengan menambahkan path `/` ke `urls.py` proyek.
 
-    ***Jawab***:  
-    *(belum dijawab)*
+    ```python
+    from django.urls import path
+    from main import views
+
+    urlpatterns = [
+        path('', views.show_main, name='show_main'),
+    ]
+    ```
+
+    b. Selanjutnya, saya membuat aplikasi baru dengan perintah `python3 manage.py startapp main`.
+
+    c. Kemudian, saya membuat model `Product` di `models.py` dengan atribut `name`, `price`, dan `description`.
+
+    ```python
+    from django.db import models
+
+    class Product(models.Model):
+        name = models.CharField(max_length=100)
+        price = models.DecimalField(max_digits=10, decimal_places=2)
+        description = models.TextField()
+    ```
+
+    Untuk sekarang, model ini belum mulai digunakan.
+
+    d. Setelah itu, saya menyiapkan `main.html` sederhana di dalam direktori `templates` aplikasi `main` yang akan menampilkan data dari model `Product`.
+
+    e. Setelah HTML utama selesai, saya membuat fungsi `show_main` di `views.py` yang akan mengembalikan _response_ berupa _template_ HTML yang menampilkan nama aplikasi dan nama serta kelas saya.
+
+    ```python
+    from django.shortcuts import render
+    from .models import Product
+
+    def show_main(request):
+        # Prepare pre-made context
+        context = {
+            'name': 'Birkenstock Boston',
+            'price': 2599000,
+            'description': 'Birkenstock Boston adalah sandal yang nyaman digunakan untuk berbagai aktivitas.'
+        }
+
+        return render(request, 'main.html', context)
+    ```
+
+    f. Selanjutnya, saya membuat _routing_ pada `urls.py` aplikasi `main` untuk membuat _path_ yang memetakan fungsi yang telah dibuat pada `views.py`.
+
+    ```python
+    from django.contrib import admin
+    from django.urls import path, include
+
+    urlpatterns = [
+    	path('admin/', admin.site.urls),
+    	path('', include('main.urls')),
+    ]
+    ```
+
+    g. Terakhir, saya melakukan _deployment_ ke PWS terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses melalui Internet.
+
+2. Buatlah bagan yang berisi _request client_ ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara `urls.py`, `views.py`, `models.py`, dan berkas `html`.
+
+    **_Jawab_**:
+
+    ![Diagram](diagrams/diagram.png)
+
+    Penjelasan:
+
+    1. User mengakses aplikasi web melalui browser dengan mengirimkan _request_ ke URL utama (`/`).
+    2. _Request_ tersebut diterima oleh `urls.py` yang mengarahkannya ke fungsi `show_main` di `views.py`. Path `/` ditulis dengan `''` di `urls.py`.
+    3. Fungsi `show_main` di `views.py` sudah mempunyai pre-defined model data (context) di dalamnya, sehingga tinggal mengisinya ke `templates/main.html`.
+    4. `main.html` akan di-_render_ oleh `views.py` dan dikirimkan sebagai _response_ ke _client_ (browser).
 
 3. Jelaskan fungsi `git` dalam pengembangan perangkat lunak!
 
-    ***Jawab***:  
+    **_Jawab_**:  
     Beberapa fungsi `git` yang paling penting dalam pengembangan perangkat lunak adalah sebagai berikut.
+
     - **Version Control**:  
-    Git mencatat setiap perubahan pada kode, memungkinkan developer untuk melihat riwayat pengeditan, siapa yang mengubah apa, dan kapan perubahan tersebut dilakukan.
+      Git mencatat setiap perubahan pada kode, memungkinkan developer untuk melihat riwayat pengeditan, siapa yang mengubah apa, dan kapan perubahan tersebut dilakukan.
     - **Collaboration**:  
-    Git memfasilitasi kolaborasi tim dengan memungkinkan banyak developer bekerja pada proyek yang sama tanpa mengganggu pekerjaan satu sama lain. Ini dilakukan dengan menggunakan `branching` dan `merging`.
+      Git memfasilitasi kolaborasi tim dengan memungkinkan banyak developer bekerja pada proyek yang sama tanpa mengganggu pekerjaan satu sama lain. Ini dilakukan dengan menggunakan `branching` dan `merging`.
     - **Backup**:  
-    Git memungkinkan developer untuk kembali ke versi sebelumnya dari kode jika terjadi kesalahan, dengan memanfaatkan fitur seperti `commit`, `reset`, dan `checkout`.
+      Git memungkinkan developer untuk kembali ke versi sebelumnya dari kode jika terjadi kesalahan, dengan memanfaatkan fitur seperti `commit`, `reset`, dan `checkout`.
     - **Code Review**:  
-    Git memungkinkan developer untuk melakukan *code review* dengan mudah, memungkinkan mereka untuk memberikan masukan dan saran kepada rekan tim mereka.
+      Git memungkinkan developer untuk melakukan _code review_ dengan mudah, memungkinkan mereka untuk memberikan masukan dan saran kepada rekan tim mereka.
     - **Deployment**:  
-    Git memungkinkan developer untuk melakukan *deployment* kode ke server produksi dengan mudah, dengan memanfaatkan fitur seperti `push` dan `pull`.
+      Git memungkinkan developer untuk melakukan _deployment_ kode ke server produksi dengan mudah, dengan memanfaatkan fitur seperti `push` dan `pull`.
 
 4. Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
 
-    ***Jawab***:  
+    **_Jawab_**:  
     Ada beberapa alasan yang mungkin mendasarinya, di antaranya:
+
     - **Struktur**:  
-    Django mengikuti pola MVT (Model-View-Template) yang membantu pemula memahami pentingnya arsitektur yang terstruktur dalam pengembangan aplikasi web.
+      Django mengikuti pola MVT (Model-View-Template) yang membantu pemula memahami pentingnya arsitektur yang terstruktur dalam pengembangan aplikasi web.
     - **Fitur Bawaan**:  
-    Django dilengkapi dengan banyak fitur bawaan, seperti autentikasi, pengelolaan database, dan manajemen admin, sehingga pemula dapat fokus pada belajar konsep dasar.
+      Django dilengkapi dengan banyak fitur bawaan, seperti autentikasi, pengelolaan database, dan manajemen admin, sehingga pemula dapat fokus pada belajar konsep dasar.
     - **Keamanan**:  
-    Django memiliki mekanisme keamanan bawaan seperti perlindungan terhadap CSRF, SQL injection, dan XSS.
+      Django memiliki mekanisme keamanan bawaan seperti perlindungan terhadap CSRF, SQL injection, dan XSS.
     - **Skalabilitas**:  
-    Django dirancang untuk menangani aplikasi web yang kompleks dan besar, sehingga pemula dapat mempelajari cara mengelola aplikasi yang berkembang.
+      Django dirancang untuk menangani aplikasi web yang kompleks dan besar, sehingga pemula dapat mempelajari cara mengelola aplikasi yang berkembang.
     - **ORM Bawaan**:  
-    Django menyediakan *ORM* bawaan yang memungkinkan developer untuk berinteraksi dengan database tanpa menulis SQL mentah.
+      Django menyediakan _ORM_ bawaan yang memungkinkan developer untuk berinteraksi dengan database tanpa menulis SQL mentah.
 
-5. Mengapa model pada Django disebut sebagai *ORM*?
+5. Mengapa model pada Django disebut sebagai _ORM_?
 
-    ***Jawab***:  
+    **_Jawab_**:  
     Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena mereka menghubungkan struktur objek dalam kode Python dengan tabel-tabel dalam database relasional. Dengan menggunakan model Django, developer dapat berinteraksi dengan database menggunakan objek Python, tanpa perlu menulis SQL mentah.
 
 ## Checklist Tugas
 
-* [X] Membuat sebuah proyek Django baru.
-* [X] Membuat aplikasi dengan nama `main` pada proyek tersebut.
-* [X] Melakukan *routing* pada proyek agar dapat menjalankan aplikasi `main`.
-* [X] Membuat model pada aplikasi `main` dengan nama `Product` dan memiliki atribut wajib sebagai berikut.
-  * `name`
-  * `price`
-  * `description`
-* [X] Membuat sebuah fungsi pada `views.py` untuk dikembalikan ke dalam sebuah *template* HTML yang menampilkan nama aplikasi serta nama dan kelas kamu.
-* [X] Membuat sebuah *routing* pada `urls.py` aplikasi `main` untuk memetakan fungsi yang telah dibuat pada `views.py`.
-* [X] Melakukan *deployment* ke PWS terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.
-* [X] Membuat sebuah `README.md` yang berisi tautan menuju aplikasi PWS yang sudah di- *deploy* , serta jawaban dari beberapa pertanyaan berikut.
-  * Jelaskan bagaimana cara kamu mengimplementasikan *checklist* di atas secara *step-by-step* (bukan hanya sekadar mengikuti tutorial).
-  * Buatlah bagan yang berisi *request client* ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara `urls.py`, `views.py`, `models.py`, dan berkas `html`.
-  * Jelaskan fungsi `git` dalam pengembangan perangkat lunak!
-  * Menurut Anda, dari semua framework yang ada, mengapa framework
-    Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
-  * Mengapa model pada Django disebut sebagai *ORM*?
+-   [x] Membuat sebuah proyek Django baru.
+-   [x] Membuat aplikasi dengan nama `main` pada proyek tersebut.
+-   [x] Melakukan _routing_ pada proyek agar dapat menjalankan aplikasi `main`.
+-   [x] Membuat model pada aplikasi `main` dengan nama `Product` dan memiliki atribut wajib sebagai berikut.
+    -   `name`
+    -   `price`
+    -   `description`
+-   [x] Membuat sebuah fungsi pada `views.py` untuk dikembalikan ke dalam sebuah _template_ HTML yang menampilkan nama aplikasi serta nama dan kelas kamu.
+-   [x] Membuat sebuah _routing_ pada `urls.py` aplikasi `main` untuk memetakan fungsi yang telah dibuat pada `views.py`.
+-   [x] Melakukan _deployment_ ke PWS terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.
+-   [x] Membuat sebuah `README.md` yang berisi tautan menuju aplikasi PWS yang sudah di- _deploy_ , serta jawaban dari beberapa pertanyaan berikut.
+    -   Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
+    -   Buatlah bagan yang berisi _request client_ ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara `urls.py`, `views.py`, `models.py`, dan berkas `html`.
+    -   Jelaskan fungsi `git` dalam pengembangan perangkat lunak!
+    -   Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
+    -   Mengapa model pada Django disebut sebagai _ORM_?
