@@ -52,7 +52,7 @@ URL to deployed app via PWS:
 	def show_main(request):
 		# Prepare pre-made context
 		context = {
-            'name': 'Birkenstock Boston',	
+			'name': 'Birkenstock Boston',	
 			'price': 2599000,
 			'description': 'Birkenstock Boston adalah sandal yang nyaman digunakan untuk berbagai aktivitas.'
 		}
