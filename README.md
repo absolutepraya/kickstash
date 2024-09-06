@@ -1,7 +1,5 @@
 # KickStash
 
-## URLs
-
 URL to deployed app via PWS:
 (Soon)
 
@@ -9,7 +7,13 @@ URL to deployed app via PWS:
 
 1. Jelaskan bagaimana cara kamu mengimplementasikan *checklist* di atas secara *step-by-step* (bukan hanya sekadar mengikuti tutorial).
 
+    ***Jawab***:
+    *(belum dijawab)*
+
 2. Buatlah bagan yang berisi *request client* ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara `urls.py`, `views.py`, `models.py`, dan berkas `html`.
+
+    ***Jawab***:  
+    *(belum dijawab)*
 
 3. Jelaskan fungsi `git` dalam pengembangan perangkat lunak!
 
