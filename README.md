@@ -1,7 +1,8 @@
 # KickStash
 
-URL to deployed app via PWS:
+## URLs
 
+URL to deployed app via PWS:
 (Soon)
 
 ## Pertanyaan dan Jawaban
@@ -12,9 +13,38 @@ URL to deployed app via PWS:
 
 3. Jelaskan fungsi `git` dalam pengembangan perangkat lunak!
 
+    ***Jawab***:  
+    Beberapa fungsi `git` yang paling penting dalam pengembangan perangkat lunak adalah sebagai berikut.
+    - **Version Control**:  
+    Git mencatat setiap perubahan pada kode, memungkinkan developer untuk melihat riwayat pengeditan, siapa yang mengubah apa, dan kapan perubahan tersebut dilakukan.
+    - **Collaboration**:  
+    Git memfasilitasi kolaborasi tim dengan memungkinkan banyak developer bekerja pada proyek yang sama tanpa mengganggu pekerjaan satu sama lain. Ini dilakukan dengan menggunakan `branching` dan `merging`.
+    - **Backup**:  
+    Git memungkinkan developer untuk kembali ke versi sebelumnya dari kode jika terjadi kesalahan, dengan memanfaatkan fitur seperti `commit`, `reset`, dan `checkout`.
+    - **Code Review**:  
+    Git memungkinkan developer untuk melakukan *code review* dengan mudah, memungkinkan mereka untuk memberikan masukan dan saran kepada rekan tim mereka.
+    - **Deployment**:  
+    Git memungkinkan developer untuk melakukan *deployment* kode ke server produksi dengan mudah, dengan memanfaatkan fitur seperti `push` dan `pull`.
+
 4. Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
 
+    ***Jawab***:  
+    Ada beberapa alasan yang mungkin mendasarinya, di antaranya:
+    - **Struktur**:  
+    Django mengikuti pola MVT (Model-View-Template) yang membantu pemula memahami pentingnya arsitektur yang terstruktur dalam pengembangan aplikasi web.
+    - **Fitur Bawaan**:  
+    Django dilengkapi dengan banyak fitur bawaan, seperti autentikasi, pengelolaan database, dan manajemen admin, sehingga pemula dapat fokus pada belajar konsep dasar.
+    - **Keamanan**:  
+    Django memiliki mekanisme keamanan bawaan seperti perlindungan terhadap CSRF, SQL injection, dan XSS.
+    - **Skalabilitas**:  
+    Django dirancang untuk menangani aplikasi web yang kompleks dan besar, sehingga pemula dapat mempelajari cara mengelola aplikasi yang berkembang.
+    - **ORM Bawaan**:  
+    Django menyediakan *ORM* bawaan yang memungkinkan developer untuk berinteraksi dengan database tanpa menulis SQL mentah.
+
 5. Mengapa model pada Django disebut sebagai *ORM*?
+
+    ***Jawab***:  
+    Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena mereka menghubungkan struktur objek dalam kode Python dengan tabel-tabel dalam database relasional. Dengan menggunakan model Django, developer dapat berinteraksi dengan database menggunakan objek Python, tanpa perlu menulis SQL mentah.
 
 ## Checklist Tugas
 
