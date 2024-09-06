@@ -90,7 +90,8 @@ URL to deployed app via PWS:
 3. Jelaskan fungsi `git` dalam pengembangan perangkat lunak!
 
     **_Jawab_**:  
-    Beberapa fungsi `git` yang paling penting dalam pengembangan perangkat lunak adalah sebagai berikut.
+    
+	Beberapa fungsi `git` yang paling penting dalam pengembangan perangkat lunak adalah sebagai berikut.
 
     - **Version Control**:  
       Git mencatat setiap perubahan pada kode, memungkinkan developer untuk melihat riwayat pengeditan, siapa yang mengubah apa, dan kapan perubahan tersebut dilakukan.
@@ -106,7 +107,8 @@ URL to deployed app via PWS:
 4. Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
 
     **_Jawab_**:  
-    Ada beberapa alasan yang mungkin mendasarinya, di antaranya:
+    
+	Ada beberapa alasan yang mungkin mendasarinya, di antaranya:
 
     - **Struktur**:  
       Django mengikuti pola MVT (Model-View-Template) yang membantu pemula memahami pentingnya arsitektur yang terstruktur dalam pengembangan aplikasi web.
@@ -122,7 +124,8 @@ URL to deployed app via PWS:
 5. Mengapa model pada Django disebut sebagai _ORM_?
 
     **_Jawab_**:  
-    Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena mereka menghubungkan struktur objek dalam kode Python dengan tabel-tabel dalam database relasional. Dengan menggunakan model Django, developer dapat berinteraksi dengan database menggunakan objek Python, tanpa perlu menulis SQL mentah.
+    
+	Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena mereka menghubungkan struktur objek dalam kode Python dengan tabel-tabel dalam database relasional. Dengan menggunakan model Django, developer dapat berinteraksi dengan database menggunakan objek Python, tanpa perlu menulis SQL mentah.
 
 ## Checklist Tugas
 
