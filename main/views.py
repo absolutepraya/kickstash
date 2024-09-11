@@ -16,7 +16,12 @@ def show_main(request):
     context = {
         'name': 'Birkenstock Boston',
         'price': 2599000,
-        'description': 'Birkenstock Boston adalah sandal yang nyaman digunakan untuk berbagai aktivitas.'
+        'description': 'Birkenstock Boston adalah sandal yang nyaman digunakan untuk berbagai aktivitas.',
+
+        # Credentials
+        'student_name': 'Daffa Abhipraya Putra',
+        'student_id': '2306245131',
+        'student_class': 'Kelas PBP D'
     }
 
     return render(request, 'main.html', context)
