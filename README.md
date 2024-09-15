@@ -2,11 +2,11 @@
 
 -   [URLs](#URLs)
 -   [Pertanyaan dan Jawaban](#Pertanyaan-dan-Jawaban)
-    -  [Tugas 3](#Tugas-3)
-    -  [Tugas 2](#Tugas-2)
+    -  [Tugas 3](#Tugas-3-—-Pertanyaan-dan-Jawaban)
+    -  [Tugas 2](#Tugas-2-—-Pertanyaan-dan-Jawaban)
 -   [Checklist Tugas](#Checklist-Tugas)
-    -  [Tugas 3](#Tugas-3)
-    -  [Tugas 2](#Tugas-2)
+    -  [Tugas 3](#Tugas-3-—-Checklist)
+    -  [Tugas 2](#Tugas-2-—-Checklist)
 
 ## URLs
 
@@ -15,11 +15,11 @@ http://daffa-abhipraya-kickstash.pbp.cs.ui.ac.id/
 
 ## Pertanyaan dan Jawaban
 
-### Tugas 3
+### Tugas 3 — Pertanyaan dan Jawaban
 
 XXX
 
-### Tugas 2
+### Tugas 2 — Pertanyaan dan Jawaban
 
 1. Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
 
@@ -139,7 +139,7 @@ XXX
 
 ## Checklist Tugas
 
-### Tugas 3
+### Tugas 3 — Checklist
 
 -   [x] Membuat input `form` untuk menambahkan objek model pada app sebelumnya.
 -   [x] Tambahkan 4 fungsi `views` baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML _by ID_, dan JSON _by ID_.
@@ -153,7 +153,7 @@ XXX
 -   [x] Mengakses keempat URL di poin 2 menggunakan Postman, membuat _screenshot_ dari hasil akses URL pada Postman, dan menambahkannya ke dalam `README.md`.
 -   [x] Melakukan `add`-`commit`-`push` ke GitHub.
 
-### Tugas 2
+### Tugas 2 — Checklist
 
 -   [x] Membuat sebuah proyek Django baru.
 -   [x] Membuat aplikasi dengan nama `main` pada proyek tersebut.
