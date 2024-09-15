@@ -2,14 +2,24 @@
 
 -   [URLs](#URLs)
 -   [Pertanyaan dan Jawaban](#Pertanyaan-dan-Jawaban)
+    -  [Tugas 3](#Tugas-3)
+    -  [Tugas 2](#Tugas-2)
 -   [Checklist Tugas](#Checklist-Tugas)
+    -  [Tugas 3](#Tugas-3)
+    -  [Tugas 2](#Tugas-2)
 
 ## URLs
 
-URL to deployed app via PWS:  
-(Soon)
+URL (deployed via PWS):  
+http://daffa-abhipraya-kickstash.pbp.cs.ui.ac.id/
 
 ## Pertanyaan dan Jawaban
+
+### Tugas 3
+
+XXX
+
+### Tugas 2
 
 1. Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
 
@@ -18,12 +28,12 @@ URL to deployed app via PWS:
     a. Pertama, saya membuat proyek Django baru dengan perintah `django-admin startproject kickstash .`. Kemudian, saya melakukan _routing_ pada proyek tersebut agar dapat menjalankan aplikasi `main` dengan menambahkan path `/` ke `urls.py` proyek.
 
     ```python
-	from django.urls import path
-	from main import views
+    from django.urls import path
+    from main import views
 
-	urlpatterns = [
-		path('', views.show_main, name='show_main'),
-	]
+    urlpatterns = [
+    	path('', views.show_main, name='show_main'),
+    ]
     ```
 
     b. Selanjutnya, saya membuat aplikasi baru dengan perintah `python3 manage.py startapp main`.
@@ -31,12 +41,12 @@ URL to deployed app via PWS:
     c. Kemudian, saya membuat model `Product` di `models.py` dengan atribut `name`, `price`, dan `description`.
 
     ```python
-	from django.db import models
+    from django.db import models
 
-	class Product(models.Model):
-		name = models.CharField(max_length=100)
-		price = models.DecimalField(max_digits=10, decimal_places=2)
-		description = models.TextField()
+    class Product(models.Model):
+    	name = models.CharField(max_length=100)
+    	price = models.DecimalField(max_digits=10, decimal_places=2)
+    	description = models.TextField()
     ```
 
     Untuk sekarang, model ini belum mulai digunakan.
@@ -46,16 +56,16 @@ URL to deployed app via PWS:
     e. Setelah HTML utama selesai, saya membuat fungsi `show_main` di `views.py` yang akan mengembalikan _response_ berupa _template_ HTML yang menampilkan nama aplikasi dan nama serta kelas saya.
 
     ```python
-	from django.shortcuts import render
-	from .models import Product
+    from django.shortcuts import render
+    from .models import Product
 
-	def show_main(request):
-		# Prepare pre-made context
-		context = {
-			'name': 'Birkenstock Boston',	
-			'price': 2599000,
-			'description': 'Birkenstock Boston adalah sandal yang nyaman digunakan untuk berbagai aktivitas.'
-		}
+    def show_main(request):
+    	# Prepare pre-made context
+    	context = {
+    		'name': 'Birkenstock Boston',
+    		'price': 2599000,
+    		'description': 'Birkenstock Boston adalah sandal yang nyaman digunakan untuk berbagai aktivitas.'
+    	}
 
     	return render(request, 'main.html', context)
     ```
@@ -89,9 +99,9 @@ URL to deployed app via PWS:
 
 3. Jelaskan fungsi `git` dalam pengembangan perangkat lunak!
 
-    **_Jawab_**:  
-    
-	Beberapa fungsi `git` yang paling penting dalam pengembangan perangkat lunak adalah sebagai berikut.
+    **_Jawab_**:
+
+    Beberapa fungsi `git` yang paling penting dalam pengembangan perangkat lunak adalah sebagai berikut.
 
     - **Version Control**:  
       Git mencatat setiap perubahan pada kode, memungkinkan developer untuk melihat riwayat pengeditan, siapa yang mengubah apa, dan kapan perubahan tersebut dilakukan.
@@ -106,9 +116,9 @@ URL to deployed app via PWS:
 
 4. Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
 
-    **_Jawab_**:  
-    
-	Ada beberapa alasan yang mungkin mendasarinya, di antaranya:
+    **_Jawab_**:
+
+    Ada beberapa alasan yang mungkin mendasarinya, di antaranya:
 
     - **Struktur**:  
       Django mengikuti pola MVT (Model-View-Template) yang membantu pemula memahami pentingnya arsitektur yang terstruktur dalam pengembangan aplikasi web.
@@ -123,11 +133,27 @@ URL to deployed app via PWS:
 
 5. Mengapa model pada Django disebut sebagai _ORM_?
 
-    **_Jawab_**:  
-    
-	Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena mereka menghubungkan struktur objek dalam kode Python dengan tabel-tabel dalam database relasional. Dengan menggunakan model Django, developer dapat berinteraksi dengan database menggunakan objek Python, tanpa perlu menulis SQL mentah.
+    **_Jawab_**:
+
+    Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena mereka menghubungkan struktur objek dalam kode Python dengan tabel-tabel dalam database relasional. Dengan menggunakan model Django, developer dapat berinteraksi dengan database menggunakan objek Python, tanpa perlu menulis SQL mentah.
 
 ## Checklist Tugas
+
+### Tugas 3
+
+-   [x] Membuat input `form` untuk menambahkan objek model pada app sebelumnya.
+-   [x] Tambahkan 4 fungsi `views` baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML _by ID_, dan JSON _by ID_.
+-   [x] Membuat routing URL untuk masing-masing `views` yang telah ditambahkan pada poin 2.
+-   [ ] Menjawab beberapa pertanyaan berikut pada `README.md` pada _root folder_.
+    -   [ ] Jelaskan mengapa kita memerlukan _data delivery_ dalam pengimplementasian sebuah platform?
+    -   [ ] Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+    -   [ ] Jelaskan fungsi dari method `is_valid()` pada form Django dan mengapa kita membutuhkan method tersebut?
+    -   [ ] Mengapa kita membutuhkan `csrf_token` saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan `csrf_token` pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+    -   [ ] Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
+-   [x] Mengakses keempat URL di poin 2 menggunakan Postman, membuat _screenshot_ dari hasil akses URL pada Postman, dan menambahkannya ke dalam `README.md`.
+-   [x] Melakukan `add`-`commit`-`push` ke GitHub.
+
+### Tugas 2
 
 -   [x] Membuat sebuah proyek Django baru.
 -   [x] Membuat aplikasi dengan nama `main` pada proyek tersebut.
