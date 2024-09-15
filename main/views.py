@@ -12,7 +12,7 @@ def show_main(req):
         # Credentials
         "student_name": "Daffa Abhipraya Putra",
         "student_id": "2306245131",
-        "student_class": "Kelas PBP D",
+        "student_class": "PBP D",
         # Data
         "products": products,
     }
