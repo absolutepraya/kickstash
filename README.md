@@ -2,11 +2,11 @@
 
 -   [URLs](#URLs)
 -   [Pertanyaan dan Jawaban](#Pertanyaan-dan-Jawaban)
-    -  [Tugas 3](#Tugas-3-—-Pertanyaan-dan-Jawaban)
-    -  [Tugas 2](#Tugas-2-—-Pertanyaan-dan-Jawaban)
+    -  [Tugas 3](#Tugas-3--Pertanyaan-dan-Jawaban)
+    -  [Tugas 2](#Tugas-2--Pertanyaan-dan-Jawaban)
 -   [Checklist Tugas](#Checklist-Tugas)
-    -  [Tugas 3](#Tugas-3-—-Checklist)
-    -  [Tugas 2](#Tugas-2-—-Checklist)
+    -  [Tugas 3](#Tugas-3--Checklist)
+    -  [Tugas 2](#Tugas-2--Checklist)
 
 ## URLs
 
