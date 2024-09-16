@@ -2,11 +2,11 @@
 
 -   [URLs](#URLs)
 -   [Pertanyaan dan Jawaban](#Pertanyaan-dan-Jawaban)
-    -  [Tugas 3](#Tugas-3--Pertanyaan-dan-Jawaban)
-    -  [Tugas 2](#Tugas-2--Pertanyaan-dan-Jawaban)
+    -   [Tugas 3](#Tugas-3--Pertanyaan-dan-Jawaban)
+    -   [Tugas 2](#Tugas-2--Pertanyaan-dan-Jawaban)
 -   [Checklist Tugas](#Checklist-Tugas)
-    -  [Tugas 3](#Tugas-3--Checklist)
-    -  [Tugas 2](#Tugas-2--Checklist)
+    -   [Tugas 3](#Tugas-3--Checklist)
+    -   [Tugas 2](#Tugas-2--Checklist)
 
 ## URLs
 
@@ -17,7 +17,57 @@ http://daffa-abhipraya-kickstash.pbp.cs.ui.ac.id/
 
 ### Tugas 3 — Pertanyaan dan Jawaban
 
-XXX
+1. Jelaskan mengapa kita memerlukan _data delivery_ dalam pengimplementasian sebuah platform?
+
+    **_Jawab_**:
+
+    Kita perlu _data delivery_ karena beberapa alasan berikut.
+
+    - Memungkinkan platform dalam mengirimkan data dalam bentuk XML atau JSON, sehingga aplikasi klien mudah untuk menggunakan dan mengolah data tersebut.
+    - Berguna untuk memisahkan antara _backend_ dan _frontend_ sehingga memungkinkan pengembangan aplikasi yang lebih modular dan terstruktur.
+    - Memungkinkan aplikasi untuk berkomunikasi dengan _third-party services_ dan _APIs_ lainnya dengan mudah.
+    - Memastikan bahwa hanya data yang diperlukan yang dikirimkan ke aplikasi klien, sehingga mengurangi _overhead_, mempercepat _loading time_, dan melindungi data lainnya.
+
+2. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+
+    **_Jawab_**:
+
+    JSON **lebih baik** daripada XML. Hal ini disebabkan oleh beberapa alasan berikut.
+
+    a. **Ringkas**: JSON lebih ringkas daripada XML, karena hanya membutuhkan sedikit karakter untuk merepresentasikan data yang sama.
+
+    b. **Mudah Di-_parse_**: JSON lebih mudah di-parse oleh bahasa pemrograman modern.
+
+    c. **Mudah Dibaca**: JSON lebih mudah dibaca oleh manusia karena strukturnya yang sederhana.
+
+3. Jelaskan fungsi dari method `is_valid()` pada form Django dan mengapa kita membutuhkan method tersebut?
+
+    **_Jawab_**:
+
+    Method `is_valid()` pada form Django berguna untuk memvalidasi apakah data yang diisikan di form mengikuti aturan yang dibuat di class form yang dibuat, seperti misalnya di kode saya, `ProductForm`. Ini mencakup validasi seperti _required fields_, _data types_, dan lainnya.
+
+4. Mengapa kita membutuhkan `csrf_token` saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan `csrf_token` pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+
+    **_Jawab_**:
+
+    Kita membutuhkan `csrf_token` saat membuat form di Django untuk melindungi aplikasi dari serangan _Cross-Site Request Forgery_ (CSRF). Jika kita tidak menambahkan `csrf_token` pada form Django, maka penyerang dapat memanfaatkan celah ini untuk melakukan serangan CSRF, di mana penyerang dapat mengirimkan _request_ palsu ke aplikasi yang memanfaatkan _session_ yang sudah ada di _client_.
+
+5. Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
+
+    **_Jawab_**:
+
+    ...
+
+**_EXTRA_**
+
+Screenshot Postman:
+
+| GET to URL Endpoint | Response (Screenshot) |
+|---------------------|-----------------------|
+| `/xml` | ![XML](assets/requests/get_xml.png) |
+| `/json` | ![JSON](assets/requests/get_json.png) |
+| `/xml/[id]` | ![XML by ID](assets/requests/get_xml_by_id.png) |
+| `/json/[id]` | ![JSON by ID](assets/requests/get_json_by_id.png) |
 
 ### Tugas 2 — Pertanyaan dan Jawaban
 
@@ -88,7 +138,7 @@ XXX
 
     **_Jawab_**:
 
-    ![Diagram](diagrams/diagram.png)
+    ![Diagram](assets/diagrams/diagram.png)
 
     Penjelasan:
 
