@@ -56,18 +56,156 @@ http://daffa-abhipraya-kickstash.pbp.cs.ui.ac.id/
 
     **_Jawab_**:
 
-    ...
+    1. Pertama, saya membuat file `base.html` di `/templates` berisi block `meta` dan `content` yang akan di-extend atau diisi oleh HTML lainnya.
+
+        ```html
+        {% load static %}
+        <!DOCTYPE html>
+        <html lang="en">
+        	<head>
+        		<meta charset="UTF-8" />
+        		<meta
+        			name="viewport"
+        			content="width=device-width, initial-scale=1.0"
+        		/>
+        		{% block meta %} {% endblock meta %}
+        	</head>
+
+        	<body>
+        		{% block content %} {% endblock content %}
+        	</body>
+        </html>
+        ```
+
+        Tidak lupa, saya juga menambahkan base template HTML tersebut ke `TEMPLATES` di `/kickstash/settings.py` agar dikenali oleh Django. Setelah itu, saya me-_refactor_ `main.html` di `/main/templates` untuk meng-extend `base.html`.
+
+        Hal ini guna mempersingkat kode HTML yang akan digunakan di setiap halaman.
+
+    2. Saya membuat form `ProductForm` di `forms.py` yang akan digunakan untuk menambahkan objek dengan model `Product` ke database.
+
+        ```python
+        class ProductForm(ModelForm):
+          class Meta:
+              model = Product
+              fields = ["name", "price", "description", "stock"]
+        ```
+
+        `ProductForm` yang dibuat di sana akan digunakan di `views.py` sebagai form yang akan di-_render_ ke halaman `/create-product`.
+
+        ```python
+        def create_product(req):
+          form = ProductForm(req.POST or None)
+
+          if form.is_valid() and req.method == "POST":
+              form.save()
+              return redirect("main:show_main")
+
+          context = {"form": form}
+          return render(req, "create_product.html", context)
+        ```
+
+        Untuk halaman `/create-product`, saya membuat sebuah file HTML baru bernama `create_product.html` di dalam direktori `/main/templates`, kurang lebih seperti ini:
+
+        ```html
+        {% extends 'base.html' %} {% block content %}
+
+        <h1>Create a Product</h1>
+
+        <form method="POST">
+        	{% csrf_token %}
+        	<table>
+        		{{ form.as_table }}
+        		<tr>
+        			<td></td>
+        			<td>
+        				<input
+        					type="submit"
+        					value="Create Product"
+        				/>
+        			</td>
+        		</tr>
+        	</table>
+        </form>
+
+        {% endblock content %}
+        ```
+
+        Selanjutnya, saya menambahkan url `create-product` ke `urls.py` di dalam direktori `/main`, agar form tersebut ditampilkan di halaman `/create-product`.
+
+    3. Tidak lupa, saya meng-_update_ `main.html` di `/main/templates` untuk menambahkan
+
+        - _button_ ke halaman `/create-product` agar form tersebut dapat diakses.
+        - _table_ berisi data dari model `Product` yang sudah ada di database.
+
+        Untuk menampilkan data di _table_-nya, saya mengubah _context_ yang ada di `show_main` di `views.py` menjadi seperti ini:
+
+        ```python
+        context = {
+          # Credentials
+          "student_name": "Daffa Abhipraya Putra",
+          "student_id": "2306245131",
+          "student_class": "PBP D",
+          # Data
+          "products": products,
+        }
+        ```
+
+        `products` ini akan diterima oleh `main.html` dan di-_loop_ untuk ditampilkan sebagai _table_, sehingga saya menggunakan iterasi berikut untuk menambahkan setiap baris data ke _table_.
+
+        ```html
+        {% for product in products %} ... {% endfor %}
+        ```
+
+    4. Terakhir, untuk menampilkan data dalam format `XML`, `XML/[id]`, `JSON`, dan `JSON/[id]`, saya menambahkan 4 fungsi baru di `views.py` yang akan mengembalikan _response_ dalam format yang sesuai.
+
+        ```python
+        def show_xml(req):
+          data = Product.objects.all()
+          return HttpResponse(
+              serializers.serialize("xml", data), content_type="application/xml"
+          )
+
+        def show_json(req):
+          data = Product.objects.all()
+          return HttpResponse(
+              serializers.serialize("json", data), content_type="application/json"
+          )
+
+        def show_xml_by_id(req, id):
+          data = Product.objects.filter(pk=id)
+          return HttpResponse(
+              serializers.serialize("xml", data), content_type="application/xml"
+          )
+
+        def show_json_by_id(req, id):
+          data = Product.objects.filter(pk=id)
+          return HttpResponse(
+              serializers.serialize("json", data), content_type="application/json"
+          )
+        ```
+
+        Kemudian, saya menambahkan _routing_ untuk masing-masing fungsi tersebut di `urls.py` di dalam direktori `/main`.
+
+        ```python
+        urlpatterns = [
+          ...
+          path("xml", views.get_xml, name="get_xml"),
+          path("json", views.get_json, name="get_json"),
+          path("xml/<str:id>", views.get_xml_by_id, name="get_xml_by_id"),
+          path("json/<str:id>", views.get_json_by_id, name="get_json_by_id"),
+        ]
+        ```
 
 **_EXTRA_**
 
 Screenshot Postman:
 
-| GET to URL Endpoint | Response (Screenshot) |
-|---------------------|-----------------------|
-| `/xml` | ![XML](assets/requests/get_xml.png) |
-| `/json` | ![JSON](assets/requests/get_json.png) |
-| `/xml/[id]` | ![XML by ID](assets/requests/get_xml_by_id.png) |
-| `/json/[id]` | ![JSON by ID](assets/requests/get_json_by_id.png) |
+| GET to URL Endpoint | Response (Screenshot)                             |
+| ------------------- | ------------------------------------------------- |
+| `/xml`              | ![XML](assets/requests/get_xml.png)               |
+| `/json`             | ![JSON](assets/requests/get_json.png)             |
+| `/xml/[id]`         | ![XML by ID](assets/requests/get_xml_by_id.png)   |
+| `/json/[id]`        | ![JSON by ID](assets/requests/get_json_by_id.png) |
 
 ### Tugas 2 — Pertanyaan dan Jawaban
 
@@ -194,12 +332,12 @@ Screenshot Postman:
 -   [x] Membuat input `form` untuk menambahkan objek model pada app sebelumnya.
 -   [x] Tambahkan 4 fungsi `views` baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML _by ID_, dan JSON _by ID_.
 -   [x] Membuat routing URL untuk masing-masing `views` yang telah ditambahkan pada poin 2.
--   [ ] Menjawab beberapa pertanyaan berikut pada `README.md` pada _root folder_.
-    -   [ ] Jelaskan mengapa kita memerlukan _data delivery_ dalam pengimplementasian sebuah platform?
-    -   [ ] Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
-    -   [ ] Jelaskan fungsi dari method `is_valid()` pada form Django dan mengapa kita membutuhkan method tersebut?
-    -   [ ] Mengapa kita membutuhkan `csrf_token` saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan `csrf_token` pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
-    -   [ ] Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
+-   [x] Menjawab beberapa pertanyaan berikut pada `README.md` pada _root folder_.
+    -   [x] Jelaskan mengapa kita memerlukan _data delivery_ dalam pengimplementasian sebuah platform?
+    -   [x] Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+    -   [x] Jelaskan fungsi dari method `is_valid()` pada form Django dan mengapa kita membutuhkan method tersebut?
+    -   [x] Mengapa kita membutuhkan `csrf_token` saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan `csrf_token` pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+    -   [x] Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
 -   [x] Mengakses keempat URL di poin 2 menggunakan Postman, membuat _screenshot_ dari hasil akses URL pada Postman, dan menambahkannya ke dalam `README.md`.
 -   [x] Melakukan `add`-`commit`-`push` ke GitHub.
 
