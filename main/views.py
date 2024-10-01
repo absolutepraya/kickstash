@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from main.forms import ProductForm
 from .models import Product
 from django.http import HttpResponse, HttpResponseRedirect
@@ -35,9 +35,9 @@ def create_product(req):
     form = ProductForm(req.POST or None)
 
     if form.is_valid() and req.method == "POST":
-        mood_entry = form.save(commit=False)
-        mood_entry.user = req.user
-        mood_entry.save()
+        product = form.save(commit=False)
+        product.user = req.user
+        product.save()
         return redirect('main:show_main')
 
     context = {"form": form}
@@ -107,3 +107,21 @@ def logout_user(req):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+
+def edit_product(req, id):
+    product = Product.objects.get(pk=id)
+    form = ProductForm(req.POST or None, instance=product)
+
+    if form.is_valid() and req.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse("main:show_main"))
+
+    context = {"form": form}
+    return render(req, "edit_product.html", context)
+
+
+def delete_product(req, id):
+    product = Product.objects.get(pk=id)
+    product.delete()
+    return HttpResponseRedirect(reverse("main:show_main"))

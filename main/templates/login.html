@@ -1,37 +1,60 @@
 {% extends 'base.html' %} {% block meta %}
 <title>Login</title>
 {% endblock meta %} {% block content %}
-<div class="login">
-	<h1>Login</h1>
+<div class="min-h-screen flex items-center justify-center w-screen bg-[#0d0d0d] py-12 px-4 sm:px-6 lg:px-8 text-[#cccccc]">
+	<div class="max-w-md w-full space-y-8 form-style">
+		<div>
+			<h2 class="mt-6 text-center text-3xl font-extrabold">Login to your account</h2>
+		</div>
+		<form class="mt-8 space-y-6" method="POST" action="">
+			{% csrf_token %}
+			<input type="hidden" name="remember" value="true" />
 
-	<form
-		method="POST"
-		action=""
-	>
-		{% csrf_token %}
-		<table>
-			{{ form.as_table }}
-			<tr>
-				<td></td>
-				<td>
-					<input
-						class="btn login_btn"
-						type="submit"
-						value="Login"
-					/>
-				</td>
-			</tr>
-		</table>
-	</form>
+			<div class="rounded-md shadow-sm space-y-2">
+				<div>
+					<label for="username" class="mb-2 font-semibold">Username</label>
+					<div class="relative mt-1">
+						<input id="username" name="username" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-[#0b79f7] focus:border-[#0b79f7] sm:text-sm" placeholder="Username" />
+						<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"></div>
+					</div>
+					<!-- Error handling for the username -->
+					{% if form.username.errors %}
+					<p class="mt-1 text-sm text-red-600">{{ form.username.errors.0 }}</p>
+					{% endif %}
+				</div>
+				<div class="mt-4">
+					<label for="password" class="mb-2 font-semibold">Password</label>
+					<div class="relative mt-1">
+						<input id="password" name="password" type="password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-[#0b79f7] focus:border-[#0b79f7] sm:text-sm" placeholder="Password" />
+						<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"></div>
+					</div>
+					<!-- Error handling for the password -->
+					{% if form.password.errors %}
+					<p class="mt-1 text-sm text-red-600">{{ form.password.errors.0 }}</p>
+					{% endif %}
+				</div>
+			</div>
 
-	{% if messages %}
-	<ul>
-		{% for message in messages %}
-		<li>{{ message }}</li>
-		{% endfor %}
-	</ul>
-	{% endif %} Don't have an account yet?
-	<a href="{% url 'main:register' %}">Register Now</a>
+			<div>
+				<button type="submit" class="group relative w-full bg-[#0b79f7] hover:bg-opacity-100 hover:text-white bg-opacity-10 text-[#0b79f7] border border-[#0b79f7] font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform flex-row space-x-2 flex items-center justify-center">Sign in</button>
+			</div>
+		</form>
+
+		{% if messages %}
+		<div class="mt-4">
+			{% for message in messages %}
+			<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+				<span class="block sm:inline">{{ message }}</span>
+			</div>
+			{% endfor %}
+		</div>
+		{% endif %}
+
+		<div class="text-center mt-4 text-sm flex flex-col">
+			<p class="">Don't have an account yet?</p>
+			<a href="{% url 'main:register' %}" class="font-medium text-[#0b79f7] hover:text-opacity-70">Register Now</a>
+		</div>
+	</div>
 </div>
 
 {% endblock content %}

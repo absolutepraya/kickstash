@@ -2,26 +2,15 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		{% block meta %}
 		<meta charset="UTF-8" />
 		<meta
 			name="viewport"
-			content="width=device-width, initial-scale=1.0"
+			content="width=device-width, initial-scale=1"
 		/>
-		<style>
-			body {
-				font-family: sans-serif;
-				margin: 0;
-				padding: 0;
-				overscroll-behavior: none;
-			}
-			.container {
-				padding-left: 3rem;
-				padding-right: 3rem;
-				padding-top: 1rem;
-				padding-bottom: 1rem;
-			}
-		</style>
-		{% block meta %} {% endblock meta %}
+		{% endblock meta %}
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link rel="stylesheet" href="{% static 'css/global.css' %}"/>
 	</head>
 
 	<body>

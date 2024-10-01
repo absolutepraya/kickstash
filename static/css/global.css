@@ -1,0 +1,44 @@
+body {
+	font-family: sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	overscroll-behavior: none;
+}
+
+.form-style form input,
+form textarea,
+form select {
+	width: 100%;
+	padding: 0.5rem;
+	border: 1px solid #3e3e3e;
+	border-radius: 0.375rem;
+	background-color: rgba(62,62,62,0.2);
+}
+.form-style form input:focus,
+form textarea:focus,
+form select:focus {
+	outline: none;
+	border-color: #0b79f7;
+	box-shadow: 0 0 0 3px #0b79f7;
+}
+@keyframes shine {
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
+}
+.animate-shine {
+	background: linear-gradient(
+		120deg,
+		rgba(255, 255, 255, 0.3),
+		rgba(255, 255, 255, 0.1) 50%,
+		rgba(255, 255, 255, 0.3)
+	);
+	background-size: 200% 100%;
+	animation: shine 3s infinite;
+}
