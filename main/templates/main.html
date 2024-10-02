@@ -1,15 +1,13 @@
 {% extends 'base.html' %} {% load static %} {% block meta %}
 <title>KickStash!</title>
-{% endblock meta %} {% block content %} {% include 'navbar.html' %}
+{% endblock meta %} {% block content %} {% include 'navbar.html' with current_page='main' %}
 <div class="overflow-x-hidden md:px-8 pt-32 min-h-screen bg-[#0d0d0d] flex flex-col w-screen space-y-12 items-center text-[#cccccc]">
-	<div class="flex flex-col space-y-10 w-[70rem] justify-center items-center">
-		<img src="{% static 'image/promo/hoka.webp' %}" alt="Weekend" class="w-[70rem] rounded-xl" />
-	</div>
+	<img src="{% static 'image/promo/hoka.webp' %}" alt="Weekend" class="md:w-[70rem] rounded-xl" />
 	<div class="flex flex-col space-y-8 w-[70rem]">
-		<div class="relative flex flex-row space-x-4 w-[70rem] justify-start items-center">
-			<div id="my-products" class="absolute -top-32"></div>
+		<div class="relative md:flex hidden flex-row space-x-4 w-[70rem] justify-start items-center">
 			<p class="font-semibold text-2xl tracking-widest">My Products</p>
 			<div class="w-full h-0.5 bg-[#262626] w-auto flex-grow"></div>
+			<div id="my-products" class="absolute -top-32"></div>
 		</div>
 		<div class="flex justify-start w-full">
 			<a href="{% url 'main:create_product' %}" class="bg-[#0b79f7] hover:bg-opacity-100 hover:text-white bg-opacity-10 text-[#0b79f7] border border-[#0b79f7] font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform flex-row space-x-2 flex items-center justify-center add-button">
@@ -21,11 +19,11 @@
 					.add-icon-hover {
 						opacity: 0;
 					}
-	
+
 					.add-button:hover .add-icon-hover {
 						opacity: 1;
 					}
-	
+
 					.add-button:hover .add-icon {
 						opacity: 0;
 					}
@@ -33,12 +31,9 @@
 				<p>Add New Product</p>
 			</a>
 		</div>
-	
+
 		{% if not products %}
-		<div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
-			<img src="{% static 'image/sedih-banget.png' %}" alt="Sad face" class="w-32 h-32 mb-4" />
-			<p class="text-center text-gray-600 mt-4">Belum ada produk yang dijual di KickStash.</p>
-		</div>
+		<p>No products available</p>
 		{% else %}
 		<div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-[70rem]">{% for product in products %} {% include 'card_product.html' with product=product %} {% endfor %}</div>
 		{% endif %}
