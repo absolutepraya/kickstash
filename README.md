@@ -2,6 +2,7 @@
 
 -   [URLs](#URLs)
 -   [Pertanyaan dan Jawaban](#Pertanyaan-dan-Jawaban)
+    -   [Tugas 5](#Tugas-5--Pertanyaan-dan-Jawaban)
     -   [Tugas 4](#Tugas-4--Pertanyaan-dan-Jawaban)
     -   [Tugas 3](#Tugas-3--Pertanyaan-dan-Jawaban)
     -   [Tugas 2](#Tugas-2--Pertanyaan-dan-Jawaban)
@@ -16,6 +17,122 @@ URL (deployed via PWS):
 http://daffa-abhipraya-kickstash.pbp.cs.ui.ac.id/
 
 ## Pertanyaan dan Jawaban
+
+### Tugas 5 — Pertanyaan dan Jawaban
+
+1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+
+    **_Jawab_**:
+
+    Urutan prioritas pengambilan CSS selector adalah sebagai berikut.
+
+    1. **Inline Styles**:  
+       Inline styles memiliki prioritas tertinggi, sehingga akan mengambil alih semua properti CSS lainnya.
+    2. **ID Selectors**:  
+       ID selectors memiliki prioritas lebih tinggi daripada class selectors, sehingga akan mengambil alih properti CSS yang sama dari class selectors.
+    3. **Class Selectors**:  
+       Class selectors memiliki prioritas lebih tinggi daripada tag selectors, sehingga akan mengambil alih properti CSS yang sama dari tag selectors.
+    4. **Tag Selectors**:  
+       Tag selectors memiliki prioritas terendah, sehingga akan diambil alih oleh class selectors dan ID selectors.
+
+2. Mengapa _responsive design_ menjadi konsep yang penting dalam pengembangan aplikasi _web_? Berikan contoh aplikasi yang sudah dan belum menerapkan _responsive design_!
+
+    **_Jawab_**:
+
+    _Responsive design_ menjadi konsep yang penting dalam pengembangan aplikasi _web_ karena beberapa alasan berikut.
+
+    - **Multi-Device Compatibility**:  
+      _Responsive design_ memungkinkan aplikasi untuk berfungsi dengan baik di berbagai perangkat, seperti _desktop_, _tablet_, dan _mobile_.
+    - **User Experience**:  
+      _Responsive design_ meningkatkan pengalaman pengguna dengan menyediakan tata letak yang mudah dinavigasi dan mudah dibaca di berbagai perangkat.
+    - **SEO**:  
+      _Responsive design_ membantu meningkatkan peringkat SEO dengan memberikan pengalaman pengguna yang lebih baik dan mengurangi _bounce rate_.
+    - **Cost-Effective**:  
+      _Responsive design_ mengurangi biaya pengembangan karena hanya perlu membuat satu aplikasi yang dapat beradaptasi dengan berbagai perangkat.
+
+    Contoh aplikasi yang sudah menerapkan _responsive design_ adalah Google dan Facebook, di mana kedua aplikasi ini dapat berfungsi dengan baik di berbagai perangkat. Contoh aplikasi yang belum menerapkan _responsive design_ adalah aplikasi SIAK-NG Universitas Indonesia.
+
+3. Jelaskan perbedaan antara _margin_, _border_, dan _padding_, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+    - **_Margin_**:  
+      _Margin_ adalah ruang di sekeliling elemen HTML yang memisahkan elemen tersebut dari elemen lainnya. _Margin_ dapat diatur menggunakan properti `margin` di CSS.
+    - **_Border_**:  
+      _Border_ adalah garis yang mengelilingi elemen HTML. _Border_ dapat diatur menggunakan properti `border` di CSS.
+    - **_Padding_**:  
+      _Padding_ adalah ruang di sekeliling konten elemen HTML yang memisahkan konten dari _border_. _Padding_ dapat diatur menggunakan properti `padding` di CSS.
+
+    Cara mengimplementasikan _margin_, _border_, dan _padding_ adalah dengan menambahkan properti CSS yang sesuai ke elemen HTML yang diinginkan. Berikut adalah contoh penggunaan properti CSS untuk _margin_, _border_, dan _padding_.
+
+    ```css
+    .element {
+    	margin: 10px;
+    	border: 1px solid black;
+    	padding: 10px;
+    }
+    ```
+
+4. **Jelaskan konsep _flex box_ dan _grid layout_ beserta kegunaannya!**
+
+    **Konsep**:
+
+    - **_Flexbox_**:  
+      _Flexbox_ adalah model tata letak yang memungkinkan
+      developer untuk membuat tata letak yang responsif dan fleksibel tanpa menggunakan _float_ atau _positioning_. _Flexbox_ memungkinkan developer untuk mengatur elemen dalam
+      baris atau kolom, menyesuaikan
+      ukuran elemen, dan menentukan
+      _alignment_ dan _order_ elemen.
+    - **_Grid Layout_**:
+      _Grid Layout_ adalah model tata letak yang memungkinkan developer untuk membuat tata letak yang kompleks dan responsif dengan menggunakan _grid_ dua dimensi. _Grid Layout_ memungkinkan developer untuk membuat _grid_ dengan baris dan kolom, menentukan _alignment_ dan _spacing_ elemen, dan mengatur elemen dalam _grid_.
+
+    **Kegunaan**:
+
+    - **_Flexbox_**:  
+      _Flexbox_ berguna untuk membuat tata letak yang fleksibel dan responsif, seperti _navigation bar_, _sidebar_, dan _card layout_.
+    - **_Grid Layout_**:
+      _Grid Layout_ berguna untuk membuat tata letak yang kompleks dan responsif, seperti _grid gallery_, _dashboard_, dan _form layout_.
+
+5. **Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial)!**
+
+    **_Jawab_**:
+
+    1. Menerapkan Tailwind CSS pada aplikasi Django dengan menambahkan
+
+        ```html
+        <script src="https://cdn.tailwindcss.com"></script>
+        ```
+
+        pada `<head>` di `base.html`.
+
+    2. Menambahkan fitur `edit_product` dan `delete_product` pada aplikasi di `views.py` dan `urls.py`.
+
+        ```python
+        def edit_product(req, id):
+            product = Product.objects.get(pk=id)
+            form = ProductForm(req.POST or None, instance=product)
+
+            if form.is_valid() and req.method == "POST":
+                form.save()
+                return HttpResponseRedirect(reverse("main:show_main"))
+
+            context = {"form": form}
+            return render(req, "edit_product.html", context)
+
+
+        def delete_product(req, id):
+            product = Product.objects.get(pk=id)
+            product.delete()
+            return HttpResponseRedirect(reverse("main:show_main"))
+        ```
+
+        Lalu, menambahkan _routing_ untuk kedua fungsi tersebut di `urls.py`.
+
+    3. Membuat beberapa elemen HTML pada aplikasi menggunakan Tailwind CSS, termasuk:
+        - _NavBar_ yang _responsive_.
+        - _Card_ untuk menampilkan _product_.
+        - _Button_ untuk mengedit dan menghapus _product_ pada _card_.
+
+    4. Menerapkan styling tambahan dengan Tailwind CSS pada elemen HTML yang sudah dibuat, seperti _background color_, _text color_, _margin_, _padding_, dan _border_.
+
 
 ### Tugas 4 — Pertanyaan dan Jawaban
 
@@ -139,11 +256,7 @@ http://daffa-abhipraya-kickstash.pbp.cs.ui.ac.id/
         		<tr>
         			<td></td>
         			<td>
-        				<input
-        					type="submit"
-        					name="submit"
-        					value="Daftar"
-        				/>
+        				<input type="submit" name="submit" value="Daftar" />
         			</td>
         		</tr>
         	</table>
@@ -256,10 +369,7 @@ http://daffa-abhipraya-kickstash.pbp.cs.ui.ac.id/
         <html lang="en">
         	<head>
         		<meta charset="UTF-8" />
-        		<meta
-        			name="viewport"
-        			content="width=device-width, initial-scale=1.0"
-        		/>
+        		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
         		{% block meta %} {% endblock meta %}
         	</head>
 
@@ -310,10 +420,7 @@ http://daffa-abhipraya-kickstash.pbp.cs.ui.ac.id/
         		<tr>
         			<td></td>
         			<td>
-        				<input
-        					type="submit"
-        					value="Create Product"
-        				/>
+        				<input type="submit" value="Create Product" />
         			</td>
         		</tr>
         	</table>
@@ -518,6 +625,24 @@ Screenshot Postman:
     Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena mereka menghubungkan struktur objek dalam kode Python dengan tabel-tabel dalam database relasional. Dengan menggunakan model Django, developer dapat berinteraksi dengan database menggunakan objek Python, tanpa perlu menulis SQL mentah.
 
 ## Checklist Tugas
+
+### Tugas 5 — Checklist
+
+-   [x] Implementasikan fungsi untuk menghapus dan mengedit _product_.
+-   [x] Kustomisasi desain pada _template_ HTML yang telah dibuat pada tugas-tugas sebelumnya menggunakan CSS atau CSS framework (seperti Bootstrap, Tailwind, Bulma) dengan ketentuan sebagai berikut:
+    -   [x] Kustomisasi halaman _login_, _register_, dan tambah _product_ semenarik mungkin.
+    -   [x] Kustomisasi halaman daftar _product_ menjadi lebih menarik dan _responsive_. Kemudian, perhatikan kondisi berikut:
+        -   [x] Jika pada aplikasi belum ada _product_ yang tersimpan, halaman daftar _product_ akan menampilkan gambar dan pesan bahwa belum ada _product_ yang terdaftar.
+        -   [x] Jika sudah ada _product_ yang tersimpan, halaman daftar _product_ akan menampilkan detail setiap _product_ dengan menggunakan **_card_** (**tidak boleh sama persis dengan desain pada Tutorial!**).
+    -   [x] Untuk setiap **_card product_**, buatlah dua buah _button_ untuk mengedit dan menghapus _product_ pada **_card_** tersebut!
+    -   [x] Buatlah _navigation bar_ (_navbar_) untuk fitur-fitur pada aplikasi yang _responsive_ terhadap perbedaan ukuran _device_, khususnya _mobile_ dan _desktop_.
+-   [x] Menjawab beberapa pertanyaan berikut pada `README.md` pada _root folder_ (silakan modifikasi `README.md` yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
+    -   [x] Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+    -   [x] Mengapa _responsive design_ menjadi konsep yang penting dalam pengembangan aplikasi _web_? Berikan contoh aplikasi yang sudah dan belum menerapkan _responsive design_!
+    -   [x] Jelaskan perbedaan antara _margin_, _border_, dan _padding_, serta cara untuk mengimplementasikan ketiga hal tersebut!
+    -   [x] Jelaskan konsep _flex box_ dan _grid layout_ beserta kegunaannya!
+    -   [x] Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial)!
+-   [x] Melakukan `add`-`commit`-`push` ke GitHub.
 
 ### Tugas 4 — Checklist
 

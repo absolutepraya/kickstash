@@ -17,15 +17,17 @@ def show_main(req):
 
     context = {
         # User credentials
-        'name': req.user.username,
+        "name": req.user.username,
         # Data
         "products": products,
         # Cookies
-        'last_login': req.COOKIES['last_login'],
+        "last_login": req.COOKIES["last_login"],
         # My credentials
         "student_name": "Daffa Abhipraya Putra",
         "student_id": "2306245131",
         "student_class": "PBP D",
+        # Page
+        # "current_page": "main",
     }
 
     return render(req, "main.html", context)
@@ -109,6 +111,7 @@ def logout_user(req):
     return response
 
 
+@login_required(login_url="/login")
 def edit_product(req, id):
     product = Product.objects.get(pk=id)
     form = ProductForm(req.POST or None, instance=product)
@@ -121,6 +124,7 @@ def edit_product(req, id):
     return render(req, "edit_product.html", context)
 
 
+@login_required(login_url="/login")
 def delete_product(req, id):
     product = Product.objects.get(pk=id)
     product.delete()

@@ -1,47 +1,37 @@
-{% extends 'base.html' %} {% load static %} {% block meta %}
-<title>Create Product</title>
-{% endblock meta %} {% block content %} {% include 'navbar.html' %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block meta %}
+    <title>Create Product</title>
+{% endblock meta %} 
 
-<div class="flex flex-col min-h-screen bg-gray-100">
-	<div class="container mx-auto px-4 py-8 mt-16 max-w-xl">
-		<h1 class="text-3xl font-bold text-center mb-8 text-black">
-			Create Product
-		</h1>
+{% block content %} 
+    {% include 'navbar.html' %}
 
-		<div class="bg-white shadow-md rounded-lg p-6 form-style">
-			<form
-				method="POST"
-				class="space-y-6"
-			>
-				{% csrf_token %} {% for field in form %}
-				<div class="flex flex-col">
-					<label
-						for="{{ field.id_for_label }}"
-						class="mb-2 font-semibold text-gray-700"
-					>
-						{{ field.label }}
-					</label>
-					<div class="w-full">{{ field }}</div>
-					{% if field.help_text %}
-					<p class="mt-1 text-sm text-gray-500">
-						{{ field.help_text }}
-					</p>
-					{% endif %} {% for error in field.errors %}
-					<p class="mt-1 text-sm text-red-600">{{ error }}</p>
-					{% endfor %}
-				</div>
-				{% endfor %}
-				<div class="flex justify-center mt-6">
-					<button
-						type="submit"
-						class="bg-indigo-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-300 ease-in-out w-full"
-					>
-						Create Product
-					</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
+    <div class="flex flex-col min-h-screen w-screen bg-[#0d0d0d] text-[#cccccc]">
+        <div class="container mx-auto px-4 mt-32 mb-16 max-w-xl">
+            <div class="bg-[#1a1a1a] rounded-lg p-6 form-style">
+                <h1 class="text-3xl font-bold text-center">Create Product</h1>
+                <form method="POST" class="space-y-2">
+                    {% csrf_token %} 
+                    {% for field in form %}
+                    <div class="flex flex-col">
+                        <label for="{{ field.id_for_label }}" class="font-semibold">{{ field.label }}</label>
+                        <div class="w-full">{{ field }}</div>
+                        {% if field.help_text %}
+                        <p class="mt-1 text-sm">{{ field.help_text }}</p>
+                        {% endif %} 
+                        {% for error in field.errors %}
+                        <p class="mt-1 text-sm">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <div class="flex justify-center pt-8">
+                        <button type="submit" class="w-full flex items-center justify-center flex-row items-center justify-center rounded-lg px-1 py-1 space-x-1 transition duration-300 bg-yellow-600 hover:bg-opacity-100 hover:text-white bg-opacity-10 text-yellow-600 border border-yellow-600">
+                            Create Product
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
