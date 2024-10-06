@@ -1,11 +1,11 @@
 {% extends 'base.html' %} {% load static %} {% block meta %}
 <title>KickStash!</title>
 {% endblock meta %} {% block content %} {% include 'navbar.html' with current_page='main' %}
-<div class="overflow-x-hidden md:px-8 pt-32 min-h-screen bg-[#0d0d0d] flex flex-col w-screen space-y-12 items-center text-[#cccccc]">
-	<img src="{% static 'image/promo/hoka.webp' %}" alt="Weekend" class="md:w-[70rem] rounded-xl" />
-	<div class="flex flex-col space-y-8 w-[70rem]">
-		<div class="relative md:flex hidden flex-row space-x-4 w-[70rem] justify-start items-center">
-			<p class="font-semibold text-2xl tracking-widest">My Products</p>
+<div class="overflow-x-hidden md:px-8 px-4 pt-32 min-h-screen bg-[#0d0d0d] flex flex-col w-screen space-y-12 items-center text-[#cccccc]">
+	<img src="{% static 'image/promo/hoka.webp' %}" alt="Weekend" class="w-full rounded-xl" />
+	<div class="flex flex-col space-y-8 w-full">
+		<div class="relative md:flex hidden flex-row space-x-4 w-full justify-start items-center">
+			<p class="font-semibold text-2xl tracking-widest text-nowrap">My Products</p>
 			<div class="w-full h-0.5 bg-[#262626] w-auto flex-grow"></div>
 			<div id="my-products" class="absolute -top-32"></div>
 		</div>
@@ -35,7 +35,7 @@
 		{% if not products %}
 		<p>No products available</p>
 		{% else %}
-		<div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-[70rem]">{% for product in products %} {% include 'card_product.html' with product=product %} {% endfor %}</div>
+		<div class="w-full grid grid-cols-2 md:grid-cols-3 gap-6">{% for product in products %} {% include 'card_product.html' with product=product %} {% endfor %}</div>
 		{% endif %}
 	</div>
 	{% include 'footer.html' with student_name=student_name student_id=student_id student_class=student_class %}

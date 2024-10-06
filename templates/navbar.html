@@ -1,130 +1,57 @@
 {% load static %}
 
-<nav
-	class="shadow-lg fixed top-4 left-1/2 z-40 w-[60rem] -translate-x-1/2 rounded-2xl border-t-2 border-l-2 backdrop-blur-lg bg-opacity-40 bg-[#262626] border-[#262626] text-[#cccccc] shadow-lg border-opacity-60"
->
-	<div class="max-w-7xl px-4">
-		<div class="flex items-center justify-between h-16">
-			<div class="flex items-center w-1/3 justify-left relative">
-				<h1 class="text-3xl font-extrabold text-center relative text-white">
-					<img
-						src="{% static 'image/crown.png' %}"
-						alt="KickStash Crown"
-						class="absolute w-4 h-4 -top-0.5 -left-1.5 rotate-[-30deg]"
-					/>
-					KickStash!
-				</h1>
-			</div>
-			<div class="flex flex-row w-1/3 space-x-2 h-full justify-center items-center">
-				{% comment %} Home {% endcomment %}
-				<a class='h-[80%] aspect-square border-t border-l rounded-lg background bg-[#262626] bg-opacity-40 border-[#3e3e3e] flex items-center justify-center border-opacity-70' href="{% if current_page == 'main' %}#{% else %}{% url 'main:show_main' %}{% endif %}">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-				</a>
-				{% comment %} My products {% endcomment %}
-				<a class='h-[80%] aspect-square border-t border-l rounded-lg background bg-[#262626] bg-opacity-40 border-[#3e3e3e] flex items-center justify-center border-opacity-70' href="{% if current_page == 'main' %}#my-products{% else %}{% url 'main:show_main' %}{% endif %}">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-				</a>
-				{% comment %} Create new product {% endcomment %}
-				<a class='h-[80%] aspect-square border-t border-l rounded-lg background bg-[#262626] bg-opacity-40 border-[#3e3e3e] flex items-center justify-center border-opacity-70' href="{% url 'main:create_product' %}">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-plus"><path d="M16 16h6"/><path d="M19 13v6"/><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><path d="m7.5 4.27 9 5.15"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/></svg>
-				</a>
-			</div>
-			<div
-				class="hidden md:flex items-center w-1/3 justify-end space-x-3 overflow-hidden"
-			>
-				{% if user.is_authenticated %}
-				<div class="flex flex-col space-y-0 text-sm text-nowrap">
-					<!-- Username -->
-					<div
-						class="flex flex-row space-x-1 items-center justify-end"
-					>
-						<p>Logged in as <b>{{ user.username }}</b></p>
-						<img
-							src="{% static 'image/person.svg' %}"
-							alt="Person icon"
-							class="w-4 h-4"
-						/>
-					</div>
-					<!-- Last login -->
-					<div
-						class="flex flex-row space-x-1 items-center justify-end"
-					>
-						<p>{{ user.last_login }}</p>
-					</div>
-				</div>
-				<a
-					href="{% url 'main:logout' %}"
-					class="text-center bg-red-800 hover:bg-opacity-100 hover:text-white bg-opacity-20 text-red-600 font-bold py-2 px-4 rounded-lg transition duration-300 border border-red-700 shadow-md"
-				>
-					Logout
-				</a>
-				{% else %}
-				<a
-					href="{% url 'main:login' %}"
-					class="text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mr-2"
-				>
-					Login
-				</a>
-				<a
-					href="{% url 'main:register' %}"
-					class="text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300"
-				>
-					Register 
-				</a>
-				{% endif %}
-			</div>
-			<div class="md:hidden flex items-center">
-				<button class="mobile-menu-button">
-					<svg
-						class="w-6 h-6 text-white"
-						fill="none"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-					>
-						<path d="M4 6h16M4 12h16M4 18h16"></path>
-					</svg>
-				</button>
-			</div>
+<nav class="shadow-lg fixed top-4 left-1/2 z-40 max-w-[60rem] w-[90%] -translate-x-1/2 rounded-2xl border-t-2 border-l-2 backdrop-blur-lg bg-opacity-40 bg-[#262626] border-[#262626] text-[#cccccc] shadow-lg border-opacity-60 px-4">
+	<div class="flex items-center md:justify-between justify-between h-16">
+		<div class="items-center w-1/3 justify-left relative md:flex hidden">
+			<h1 class="text-3xl font-extrabold text-center relative text-white">
+				<img src="{% static 'image/crown.png' %}" alt="KickStash Crown" class="absolute w-4 h-4 -top-0.5 -left-1.5 rotate-[-30deg]" />
+				KickStash!
+			</h1>
 		</div>
-	</div>
-	<!-- Mobile menu -->
-	<div class="mobile-menu hidden md:hidden px-4 w-full md:max-w-full">
-		<div class="pt-2 pb-3 space-y-1 mx-auto">
+		<div class="flex flex-row md:w-1/3 space-x-2 h-full justify-center items-center">
+			{% comment %} Home {% endcomment %}
+			<a class="h-[80%] aspect-square border-t border-l rounded-lg background bg-[#262626] bg-opacity-40 border-[#3e3e3e] flex items-center justify-center border-opacity-70" href="{% if current_page == 'main' %}#{% else %}{% url 'main:show_main' %}{% endif %}">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house">
+					<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+					<path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+				</svg>
+			</a>
+			{% comment %} My products {% endcomment %}
+			<a class="h-[80%] aspect-square border-t border-l rounded-lg background bg-[#262626] bg-opacity-40 border-[#3e3e3e] flex items-center justify-center border-opacity-70" href="{% if current_page == 'main' %}#my-products{% else %}{% url 'main:show_main' %}{% endif %}">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package">
+					<path d="m7.5 4.27 9 5.15" />
+					<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+					<path d="m3.3 7 8.7 5 8.7-5" />
+					<path d="M12 22V12" />
+				</svg>
+			</a>
+			{% comment %} Create new product {% endcomment %}
+			<a class="h-[80%] aspect-square border-t border-l rounded-lg background bg-[#262626] bg-opacity-40 border-[#3e3e3e] flex items-center justify-center border-opacity-70" href="{% url 'main:create_product' %}">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-plus">
+					<path d="M16 16h6" />
+					<path d="M19 13v6" />
+					<path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" />
+					<path d="m7.5 4.27 9 5.15" />
+					<polyline points="3.29 7 12 12 20.71 7" />
+					<line x1="12" x2="12" y1="22" y2="12" />
+				</svg>
+			</a>
+		</div>
+		<div class="flex items-center md:w-1/3 md:justify-end md:space-x-3 overflow-hidden">
 			{% if user.is_authenticated %}
-			<span class="block text-gray-300 px-3 py-2">
-				Welcome, {{ user.username }}
-			</span>
-			<a
-				href="{% url 'main:logout' %}"
-				class="block text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300"
-			>
-				Logout
-			</a>
-			{% else %}
-			<a
-				href="{% url 'main:login' %}"
-				class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mb-2"
-			>
-				Login
-			</a>
-			<a
-				href="{% url 'main:register' %}"
-				class="block text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300"
-			>
-				Register
-			</a>
+			<div class="md:flex hidden flex-col space-y-0 text-sm text-nowrap">
+				<!-- Username -->
+				<div class="flex flex-row space-x-1 items-center justify-end">
+					<p>Logged in as <b>{{ user.username }}</b></p>
+					<img src="{% static 'image/person.svg' %}" alt="Person icon" class="w-4 h-4" />
+				</div>
+				<!-- Last login -->
+				<div class="flex flex-row space-x-1 items-center justify-end">
+					<p>{{ user.last_login }}</p>
+				</div>
+			</div>
+			<a href="{% url 'main:logout' %}" class="text-center bg-red-800 hover:bg-opacity-100 hover:text-white bg-opacity-20 text-red-600 font-bold py-2 px-4 rounded-lg transition duration-300 border border-red-700 shadow-md"> Logout </a>
 			{% endif %}
 		</div>
 	</div>
-	<script>
-		const btn = document.querySelector('button.mobile-menu-button');
-		const menu = document.querySelector('.mobile-menu');
-
-		btn.addEventListener('click', () => {
-			menu.classList.toggle('hidden');
-		});
-	</script>
 </nav>
