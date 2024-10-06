@@ -7,6 +7,7 @@
     -   [Tugas 3](#Tugas-3--Pertanyaan-dan-Jawaban)
     -   [Tugas 2](#Tugas-2--Pertanyaan-dan-Jawaban)
 -   [Checklist Tugas](#Checklist-Tugas)
+    -   [Tugas 5](#Tugas-5--Checklist)
     -   [Tugas 4](#Tugas-4--Checklist)
     -   [Tugas 3](#Tugas-3--Checklist)
     -   [Tugas 2](#Tugas-2--Checklist)

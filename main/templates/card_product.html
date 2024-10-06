@@ -1,20 +1,20 @@
 {% load static %} {% load custom_filters %}
 
-<div class="text-[#cccccc] relative md:w-full shadow-md rounded-2xl break-inside-avoid flex flex-col border-t-2 border-l-2 transform hover:rotate-1 transition-transform duration-300 p-4 items-center space-y-3 border-[#2a2a2a] shadow-lg md:h-[36rem] h-[25rem] bg-gradient-to-br from-[#1f1f1f] to-[#0e0e0e]">
+<div class="text-[#cccccc] relative md:w-full shadow-md rounded-2xl break-inside-avoid flex flex-col border-t-2 border-l-2 transform hover:rotate-1 transition-transform duration-300 md:p-4 p-2 items-center space-y-3 border-[#2a2a2a] shadow-lg md:h-[34rem] lg:h-[39rem] h-[24rem] bg-gradient-to-br from-[#1f1f1f] to-[#0e0e0e]">
 	<div class="w-full !aspect-square rounded-xl overflow-hidden flex items-center justify-center bg-[#262626]">
 		<img src="{% static 'image/noimage.svg' %}" alt="No image available" class="w-1/4 h-1/4 object-cover rounded-lg" />
 	</div>
 	<div class="w-full flex flex-col space-y-2 justify-start overflow-hidden">
-		<p class="text-xl font-semibold leading-6 text-nowrap">{{ product.name }}</p>
-		<p class="md:flex hidden">{{ product.description|truncate_words:80 }}</p>
-		<p class="md:hidden">{{ product.description|truncate_words:30 }}</p>
-		<div class="flex md:flex-row md:space-x-2 flex-col space-y-2 md:items-center">
+		<p class="md:text-xl text-lg font-semibold leading-6 text-nowrap">{{ product.name }}</p>
+		<p class="md:flex hidden md:text-base text-sm">{{ product.description|truncate_words:80 }}</p>
+		<p class="md:hidden md:text-base text-sm">{{ product.description|truncate_words:30 }}</p>
+		<div class="flex md:flex-row md:space-x-2 flex-col space-y-2 md:items-end">
 			<div class='flex flex-row space-x-2 items-center '>
-				<img src="{% static 'image/star.svg' %}" alt="Rate" class="w-4 h-4" />
-				<p class="text-sm">Unrated</p>
+				<img src="{% static 'image/star.svg' %}" alt="Rate" class="md:w-4 md:h-4 h-3 w-3" />
+				<p class="md:text-sm text-xs">Unrated</p>
 			</div>
-			<p class="text-sm hidden md:flex">∙</p>
-			<p class="text-sm">{{ product.stock }} stock left</p>
+			<p class="md:text-sm text-xs hidden md:flex md:items-center">∙</p>
+			<p class="md:text-sm text-xs md:items-center">{{ product.stock }} stock left</p>
 		</div>
 	</div>
 	<div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-row w-full items-center justify-center">
