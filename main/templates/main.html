@@ -44,6 +44,6 @@
 		<div class="w-full grid grid-cols-2 md:grid-cols-3 md:gap-6 gap-2">{% for product in products %} {% include 'card_product.html' with product=product %} {% endfor %}</div>
 		{% endif %}
 	</div>
-	{% include 'footer.html' with student_name=student_name student_id=student_id student_class=student_class %}
 </div>
+{% include 'footer.html' with student_name=student_name student_id=student_id student_class=student_class %}
 {% endblock content %}
