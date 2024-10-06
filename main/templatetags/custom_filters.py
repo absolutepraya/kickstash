@@ -1,3 +1,5 @@
+# Not used
+
 from django import template
 
 register = template.Library()

@@ -9,17 +9,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 import datetime
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 
 @login_required(login_url="/login")
 def show_main(req):
-    products = Product.objects.filter(user=req.user)
-
     context = {
         # User credentials
         "name": req.user.username,
-        # Data
-        "products": products,
         # Cookies
         "last_login": req.COOKIES["last_login"],
         # My credentials
@@ -47,14 +45,14 @@ def create_product(req):
 
 
 def show_xml(req):
-    data = Product.objects.all()
+    data = Product.objects.filter(user=req.user)
     return HttpResponse(
         serializers.serialize("xml", data), content_type="application/xml"
     )
 
 
 def show_json(req):
-    data = Product.objects.all()
+    data = Product.objects.filter(user=req.user)
     return HttpResponse(
         serializers.serialize("json", data), content_type="application/json"
     )
@@ -97,6 +95,8 @@ def login_user(req):
             response = HttpResponseRedirect(reverse("main:show_main"))
             response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
+        else:
+            messages.error(req, "Invalid username or password. Please try again.")
 
     else:
         form = AuthenticationForm(req)
@@ -129,3 +129,20 @@ def delete_product(req, id):
     product = Product.objects.get(pk=id)
     product.delete()
     return HttpResponseRedirect(reverse("main:show_main"))
+
+
+@csrf_exempt
+@require_POST
+def add_product_ajax(req):
+    name = req.POST.get("name")
+    description = req.POST.get("description")
+    price = req.POST.get("price")
+    stock = req.POST.get("stock")
+    user = req.user
+
+    new_product = Product(
+        name=name, description=description, price=price, stock=stock, user=user
+    )
+    new_product.save()
+
+    return HttpResponse(b"CREATED", status=201)
