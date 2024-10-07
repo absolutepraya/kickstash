@@ -23,7 +23,57 @@ http://daffa-abhipraya-kickstash.pbp.cs.ui.ac.id/
 
 ### Tugas 6 — Pertanyaan dan Jawaban
 
+1. Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
 
+    **_Jawab_**:  
+
+    JavaScript memiliki manfaat yang sangat besar dalam pengembangan aplikasi web, di antaranya adalah sebagai berikut.
+
+    - **Interaktivitas**:  
+      JavaScript memungkinkan developer untuk menambahkan interaktivitas ke halaman web, seperti _animations_, _pop-ups_, _form validation_, dan _real-time updates_. Hal ini meningkatkan pengalaman pengguna dan membuat aplikasi lebih menarik.
+    - **AJAX**:
+      JavaScript memungkinkan developer untuk mengirim dan menerima data dari server tanpa perlu me-_refresh_ halaman. Ini memungkinkan aplikasi untuk menjadi lebih responsif dan dinamis.
+    - **DOM Manipulation**:
+      JavaScript memungkinkan developer untuk memanipulasi elemen HTML dan CSS di halaman web, seperti menambahkan, menghapus, atau mengubah elemen. Hal ini memungkinkan developer untuk membuat tata letak yang dinamis dan responsif.
+    - **Third-Party Libraries**:
+      JavaScript memiliki banyak _third-party libraries_ dan _frameworks_ yang memperluas fungsionalitas dan mempercepat pengembangan aplikasi web, seperti React, Angular, dan Vue.
+    - **Cross-Platform Compatibility**:
+      JavaScript dapat dijalankan di berbagai _browsers_ dan perangkat, sehingga memungkinkan developer untuk membuat aplikasi yang kompatibel dengan berbagai platform.
+
+2. Jelaskan fungsi dari penggunaan `await` ketika kita menggunakan `fetch()`! Apa yang akan terjadi jika kita tidak menggunakan `await`?
+
+    **_Jawab_**:
+
+    `await` digunakan untuk menunggu hasil dari _promise_ yang dikembalikan oleh `fetch()`. Tanpa `await`, `fetch()` akan mengembalikan _promise_ yang belum selesai, sehingga kita tidak dapat mengakses data yang dikembalikan oleh _promise_ tersebut.
+
+    Jika kita tidak menggunakan `await`, maka `fetch()` akan mengembalikan _promise_ yang belum selesai. Hal ini akan menjadi fatal jika ada beberapa operasi yang bergantung pada hasil dari `fetch()`, karena operasi tersebut akan dijalankan sebelum `fetch()` selesai.
+
+3. Mengapa kita perlu menggunakan _decorator_ `csrf_exempt` pada _view_ yang akan digunakan untuk AJAX `POST`?
+
+    **_Jawab_**:
+
+    Kita perlu menggunakan _decorator_ `csrf_exempt` pada _view_ yang akan digunakan untuk AJAX `POST` karena Django secara _default_ memerlukan _CSRF token_ untuk setiap _POST request_. Namun, pada kasus AJAX, _CSRF token_ tidak dapat di-_generate_ secara otomatis oleh Django, sehingga kita perlu menonaktifkan _CSRF protection_ untuk _view_ tersebut.
+
+    Dengan menggunakan _decorator_ `csrf_exempt`, kita memberitahu Django untuk tidak memeriksa _CSRF token_ pada _POST request_ yang dikirimkan ke _view_ tersebut, sehingga kita dapat mengirimkan _POST request_ dari AJAX tanpa masalah.
+
+4. Pada tutorial PBP minggu ini, pembersihan data _input_ pengguna dilakukan di belakang (_backend_) juga. Mengapa hal tersebut tidak dilakukan di _frontend_ saja?
+
+    **_Jawab_**:
+
+    Pembersihan data _input_ pengguna dilakukan di belakang (_backend_) juga karena beberapa alasan berikut.
+
+    - **Security**:  
+      Pembersihan data di _frontend_ hanya bersifat _client-side_ dan dapat dengan mudah diubah dan di-_bypass_ oleh penyerang. Pembersihan data di _backend_ memastikan bahwa data yang diterima adalah valid dan aman untuk diproses, karena tidak bisa diubah oleh pengguna.
+    - **Consistency**:  
+      Pembersihan data di _backend_ memastikan bahwa semua data yang diterima oleh aplikasi telah melalui proses pembersihan yang sama, sehingga mengurangi kesalahan dan inkonsistensi.
+    - **Validation**:  
+      Pembersihan data di _backend_ dapat digabungkan dengan validasi data untuk memastikan bahwa data yang diterima sesuai dengan aturan dan keamanan aplikasi.
+
+5. Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial)!
+
+    **_Jawab_**:
+
+    XXX
 
 ### Tugas 5 — Pertanyaan dan Jawaban
 
@@ -134,12 +184,12 @@ http://daffa-abhipraya-kickstash.pbp.cs.ui.ac.id/
         Lalu, menambahkan _routing_ untuk kedua fungsi tersebut di `urls.py`.
 
     3. Membuat beberapa elemen HTML pada aplikasi menggunakan Tailwind CSS, termasuk:
+
         - _NavBar_ yang _responsive_.
         - _Card_ untuk menampilkan _product_.
         - _Button_ untuk mengedit dan menghapus _product_ pada _card_.
 
     4. Menerapkan styling tambahan dengan Tailwind CSS pada elemen HTML yang sudah dibuat, seperti _background color_, _text color_, _margin_, _padding_, dan _border_.
-
 
 ### Tugas 4 — Pertanyaan dan Jawaban
 
@@ -635,30 +685,25 @@ Screenshot Postman:
 
 ### Tugas 6 — Checklist
 
-- [x] Mengubah tugas 5 yang telah dibuat sebelumnya menjadi menggunakan AJAX.
-    - [x] AJAX `GET`
-        - [x] Ubahlah kode `cards` data _mood_ agar dapat mendukung AJAX `GET`.
-        - [x] Lakukan pengambilan data _mood_ menggunakan AJAX `GET`. Pastikan bahwa data yang diambil hanyalah data milik pengguna yang _logged-in_.
-    - [x] AJAX `POST`
-        - [x] Buatlah sebuah tombol yang membuka sebuah modal dengan form untuk menambahkan _mood_.  
-            :::note  
-            Modal di-_trigger_ dengan menekan suatu tombol pada halaman utama. Saat penambahan _mood_ berhasil, modal harus ditutup dan _input_ form harus dibersihkan dari data yang sudah dimasukkan ke dalam form sebelumnya. Jika penambahan gagal, tampilkan pesan _error_.
-            :::
-        - [ ] Buatlah fungsi _view_ baru untuk menambahkan _mood_ baru ke dalam basis data.
-        - [ ] Buatlah _path_ `/create-ajax/` yang mengarah ke fungsi _view_ yang baru kamu buat.
-        - [ ] Hubungkan form yang telah kamu buat di dalam modal kamu ke _path_ `/create-ajax/`.
-        - [ ] Lakukan _refresh_ pada halaman utama secara asinkronus untuk menampilkan daftar _mood_ terbaru tanpa reload halaman utama secara keseluruhan.
-    :::warning
-    Pastikan AJAX `GET` dan `POST` dapat dilakukan secara aman.
-    :::
+-   [x] Mengubah tugas 5 yang telah dibuat sebelumnya menjadi menggunakan AJAX.
 
-- [ ] Menjawab beberapa pertanyaan berikut pada `README.md` pada *root folder* (silakan modifikasi `README.md` yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
-    - [ ] Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
-    - [ ] Jelaskan fungsi dari penggunaan `await` ketika kita menggunakan `fetch()`! Apa yang akan terjadi jika kita tidak menggunakan `await`?
-    - [ ] Mengapa kita perlu menggunakan _decorator_ `csrf_exempt` pada _view_ yang akan digunakan untuk AJAX `POST`?
-    - [ ] Pada tutorial PBP minggu ini, pembersihan data _input_ pengguna dilakukan di belakang (_backend_) juga. Mengapa hal tersebut tidak dilakukan di _frontend_ saja?
-    - [ ] Jelaskan bagaimana cara kamu mengimplementasikan *checklist* di atas secara *step-by-step* (bukan hanya sekadar mengikuti tutorial)!
-- [ ] Melakukan `add`-`commit`-`push` ke GitHub.
+    -   [x] AJAX `GET`
+        -   [x] Ubahlah kode `cards` data _mood_ agar dapat mendukung AJAX `GET`.
+        -   [x] Lakukan pengambilan data _mood_ menggunakan AJAX `GET`. Pastikan bahwa data yang diambil hanyalah data milik pengguna yang _logged-in_.
+    -   [x] AJAX `POST`
+        -   [x] Buatlah sebuah tombol yang membuka sebuah modal dengan form untuk menambahkan _mood_.
+        -   [x] Buatlah fungsi _view_ baru untuk menambahkan _mood_ baru ke dalam basis data.
+        -   [x] Buatlah _path_ `/create-ajax/` yang mengarah ke fungsi _view_ yang baru kamu buat.
+        -   [x] Hubungkan form yang telah kamu buat di dalam modal kamu ke _path_ `/create-ajax/`.
+        -   [x] Lakukan _refresh_ pada halaman utama secara asinkronus untuk menampilkan daftar _mood_ terbaru tanpa reload halaman utama secara keseluruhan.
+
+-   [x] Menjawab beberapa pertanyaan berikut pada `README.md` pada _root folder_ (silakan modifikasi `README.md` yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
+    -   [x] Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+    -   [x] Jelaskan fungsi dari penggunaan `await` ketika kita menggunakan `fetch()`! Apa yang akan terjadi jika kita tidak menggunakan `await`?
+    -   [x] Mengapa kita perlu menggunakan _decorator_ `csrf_exempt` pada _view_ yang akan digunakan untuk AJAX `POST`?
+    -   [x] Pada tutorial PBP minggu ini, pembersihan data _input_ pengguna dilakukan di belakang (_backend_) juga. Mengapa hal tersebut tidak dilakukan di _frontend_ saja?
+    -   [x] Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial)!
+-   [x] Melakukan `add`-`commit`-`push` ke GitHub.
 
 ### Tugas 5 — Checklist
 
