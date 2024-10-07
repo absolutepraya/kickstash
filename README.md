@@ -2,11 +2,13 @@
 
 -   [URLs](#URLs)
 -   [Pertanyaan dan Jawaban](#Pertanyaan-dan-Jawaban)
+    -   [Tugas 6](#Tugas-6--Pertanyaan-dan-Jawaban)
     -   [Tugas 5](#Tugas-5--Pertanyaan-dan-Jawaban)
     -   [Tugas 4](#Tugas-4--Pertanyaan-dan-Jawaban)
     -   [Tugas 3](#Tugas-3--Pertanyaan-dan-Jawaban)
     -   [Tugas 2](#Tugas-2--Pertanyaan-dan-Jawaban)
 -   [Checklist Tugas](#Checklist-Tugas)
+    -   [Tugas 6](#Tugas-6--Checklist)
     -   [Tugas 5](#Tugas-5--Checklist)
     -   [Tugas 4](#Tugas-4--Checklist)
     -   [Tugas 3](#Tugas-3--Checklist)
@@ -18,6 +20,10 @@ URL (deployed via PWS):
 http://daffa-abhipraya-kickstash.pbp.cs.ui.ac.id/
 
 ## Pertanyaan dan Jawaban
+
+### Tugas 6 — Pertanyaan dan Jawaban
+
+
 
 ### Tugas 5 — Pertanyaan dan Jawaban
 
@@ -626,6 +632,33 @@ Screenshot Postman:
     Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena mereka menghubungkan struktur objek dalam kode Python dengan tabel-tabel dalam database relasional. Dengan menggunakan model Django, developer dapat berinteraksi dengan database menggunakan objek Python, tanpa perlu menulis SQL mentah.
 
 ## Checklist Tugas
+
+### Tugas 6 — Checklist
+
+- [x] Mengubah tugas 5 yang telah dibuat sebelumnya menjadi menggunakan AJAX.
+    - [x] AJAX `GET`
+        - [x] Ubahlah kode `cards` data _mood_ agar dapat mendukung AJAX `GET`.
+        - [x] Lakukan pengambilan data _mood_ menggunakan AJAX `GET`. Pastikan bahwa data yang diambil hanyalah data milik pengguna yang _logged-in_.
+    - [x] AJAX `POST`
+        - [x] Buatlah sebuah tombol yang membuka sebuah modal dengan form untuk menambahkan _mood_.  
+            :::note  
+            Modal di-_trigger_ dengan menekan suatu tombol pada halaman utama. Saat penambahan _mood_ berhasil, modal harus ditutup dan _input_ form harus dibersihkan dari data yang sudah dimasukkan ke dalam form sebelumnya. Jika penambahan gagal, tampilkan pesan _error_.
+            :::
+        - [ ] Buatlah fungsi _view_ baru untuk menambahkan _mood_ baru ke dalam basis data.
+        - [ ] Buatlah _path_ `/create-ajax/` yang mengarah ke fungsi _view_ yang baru kamu buat.
+        - [ ] Hubungkan form yang telah kamu buat di dalam modal kamu ke _path_ `/create-ajax/`.
+        - [ ] Lakukan _refresh_ pada halaman utama secara asinkronus untuk menampilkan daftar _mood_ terbaru tanpa reload halaman utama secara keseluruhan.
+    :::warning
+    Pastikan AJAX `GET` dan `POST` dapat dilakukan secara aman.
+    :::
+
+- [ ] Menjawab beberapa pertanyaan berikut pada `README.md` pada *root folder* (silakan modifikasi `README.md` yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
+    - [ ] Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+    - [ ] Jelaskan fungsi dari penggunaan `await` ketika kita menggunakan `fetch()`! Apa yang akan terjadi jika kita tidak menggunakan `await`?
+    - [ ] Mengapa kita perlu menggunakan _decorator_ `csrf_exempt` pada _view_ yang akan digunakan untuk AJAX `POST`?
+    - [ ] Pada tutorial PBP minggu ini, pembersihan data _input_ pengguna dilakukan di belakang (_backend_) juga. Mengapa hal tersebut tidak dilakukan di _frontend_ saja?
+    - [ ] Jelaskan bagaimana cara kamu mengimplementasikan *checklist* di atas secara *step-by-step* (bukan hanya sekadar mengikuti tutorial)!
+- [ ] Melakukan `add`-`commit`-`push` ke GitHub.
 
 ### Tugas 5 — Checklist
 
