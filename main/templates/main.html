@@ -81,7 +81,7 @@
 			classNameString = 'w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-6 gap-2 !mb-12';
 			products.forEach((item) => {
 				htmlString += `
-					<div class="text-[#cccccc] relative md:w-full shadow-md rounded-2xl break-inside-avoid flex flex-col border-t-2 border-l-2 transform hover:rotate-1 transition-transform duration-300 md:p-4 p-2 items-center space-y-3 border-[#2a2a2a] shadow-lg md:h-[34rem] lg:h-[39rem] h-[24rem] bg-gradient-to-br from-[#1f1f1f] to-[#0e0e0e]">
+					<div class="text-[#cccccc] relative md:w-full shadow-md rounded-2xl break-inside-avoid flex flex-col border-t-2 border-l-2 transform hover:rotate-1 transition-transform duration-300 md:p-4 p-2 items-center space-y-3 border-[#2a2a2a] shadow-lg bg-gradient-to-br from-[#1f1f1f] to-[#0e0e0e]">
 						<div class="w-full !aspect-square rounded-xl overflow-hidden flex items-center justify-center bg-[#262626]">
 							<img src="{% static 'image/noimage.svg' %}" alt="No image available" class="w-1/4 h-1/4 object-cover rounded-lg" />
 						</div>
@@ -98,15 +98,16 @@
 								<p class="md:text-sm text-xs md:items-center">${item.fields.stock} stock left</p>
 							</div>
 						</div>
-						<div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-row w-full items-center justify-center">
-							<a href="/edit-product/${item.pk}" class="w-1/3 flex items-center justify-center flex-row items-center justify-center rounded-l-lg px-1 py-1 md:space-x-1 transition duration-300 bg-yellow-600 hover:bg-opacity-100 hover:text-white bg-opacity-10 text-yellow-600 border border-yellow-600">
+						<div class="h-auto flex-grow"></div>
+						<div class="flex flex-row w-full items-center justify-center">
+							<a href="/edit-product/${item.pk}" class="w-1/2 flex items-center justify-center flex-row items-center justify-center rounded-l-lg px-1 py-1 md:space-x-1 transition duration-300 bg-yellow-600 hover:bg-opacity-100 hover:text-white bg-opacity-10 text-yellow-600 border border-yellow-600">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil">
 									<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
 									<path d="m15 5 4 4" />
 								</svg>
 								<p class="hidden md:flex">Edit</p>
 							</a>
-							<a href="/delete-product/${item.pk}" class="w-1/3 flex items-center justify-center flex-row items-center justify-center rounded-r-lg px-1 py-1 md:space-x-1 transition duration-300 bg-red-800 hover:bg-opacity-100 hover:text-white bg-opacity-20 text-red-600 border border-red-700">
+							<a href="/delete-product/${item.pk}" class="w-1/2 flex items-center justify-center flex-row items-center justify-center rounded-r-lg px-1 py-1 md:space-x-1 transition duration-300 bg-red-800 hover:bg-opacity-100 hover:text-white bg-opacity-20 text-red-600 border border-red-700">
 								<p class="hidden md:flex">Delete</p>
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser">
 									<path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21" />
