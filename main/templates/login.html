@@ -1,8 +1,14 @@
-{% extends 'base.html' %} {% block meta %}
+{% extends 'base.html' %} {% load static %} {% block meta %}
 <title>Login</title>
 {% endblock meta %} {% block content %}
 <div class="min-h-screen flex items-center justify-center w-screen bg-[#0d0d0d] py-12 px-4 sm:px-6 lg:px-8 text-[#cccccc]">
 	<div class="max-w-md w-full space-y-8 form-style">
+		<div class="w-full items-center justify-center flex">
+			<h1 class="text-5xl font-extrabold text-center relative text-white w-fit">
+				<img src="{% static 'image/crown.png' %}" alt="KickStash Crown" class="absolute w-4 h-4 -top-0.5 -left-1.5 rotate-[-30deg]" />
+				KickStash!
+			</h1>
+		</div>
 		<div>
 			<h2 class="mt-6 text-center text-3xl font-extrabold">Login to your account</h2>
 		</div>

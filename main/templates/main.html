@@ -1,8 +1,9 @@
 {% extends 'base.html' %} {% load static %} {% block meta %}
 <title>KickStash!</title>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
 {% endblock meta %} {% block content %} {% include 'navbar.html' with current_page='main' %}
 <div class="overflow-x-hidden md:px-8 px-4 pt-32 min-h-screen bg-[#0d0d0d] flex flex-col w-screen space-y-12 items-center text-[#cccccc]">
-	<div class="items-center justify-center relative md:hidden">
+	<div class="relative md:hidden">
 		<h1 class="text-5xl font-extrabold text-center relative text-white">
 			<img src="{% static 'image/crown.png' %}" alt="KickStash Crown" class="absolute w-4 h-4 -top-0.5 -left-1.5 rotate-[-30deg]" />
 			KickStash!
@@ -123,18 +124,21 @@
 		} else {
 			classNameString = 'w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-6 gap-2 !mb-12';
 			products.forEach((item) => {
+				const nameIterate = DOMPurify.sanitize(item.fields.name);
+				const descriptionIterate = DOMPurify.sanitize(item.fields.description);
+
 				htmlString += `
 					<div class="text-[#cccccc] relative md:w-full shadow-md rounded-2xl break-inside-avoid flex flex-col border-t-2 border-l-2 transform hover:rotate-1 transition-transform duration-300 md:p-4 p-2 items-center space-y-3 border-[#2a2a2a] shadow-lg bg-gradient-to-br from-[#1f1f1f] to-[#0e0e0e]">
 						<div class="relative w-full !aspect-square rounded-xl overflow-hidden flex items-center justify-center bg-[#262626]">
 							<img src="{% static 'image/noimage.svg' %}" alt="No image available" class="w-1/4 h-1/4 object-cover rounded-lg" />
-							<div class="absolute bottom-0 right-0 rounded-tl-xl bg-yellow-600 px-2 py-1">
-								<p class="font-bold text-[#0d0d0d]">Rp ${item.fields.price}</p>
+							<div class="absolute bottom-0 right-0 rounded-tl-xl bg-green-600 px-2 py-1">
+								<p class="font-bold">Rp ${item.fields.price}</p>
 							</div>
 						</div>
 						<div class="w-full flex flex-col space-y-2 justify-start overflow-hidden">
-							<p class="md:text-xl text-lg font-semibold leading-6 text-nowrap">${item.fields.name}</p>
-							<p class="md:flex hidden md:text-base text-sm">${truncateDescription(item.fields.description, 80)}</p>
-							<p class="md:hidden md:text-base text-sm">${truncateDescription(item.fields.description, 30)}</p>
+							<p class="md:text-xl text-lg font-semibold leading-6 text-nowrap">${nameIterate}</p>
+							<p class="md:flex hidden md:text-base text-sm">${truncateDescription(descriptionIterate, 80)}</p>
+							<p class="md:hidden md:text-base text-sm">${truncateDescription(descriptionIterate, 30)}</p>
 							<div class="flex md:flex-row md:space-x-2 flex-col space-y-2 md:items-end">
 								<div class='flex flex-row space-x-2 items-center '>
 									<img src="{% static 'image/star.svg' %}" alt="Rate" class="md:w-4 md:h-4 h-3 w-3" />
