@@ -25,7 +25,7 @@ http://daffa-abhipraya-kickstash.pbp.cs.ui.ac.id/
 
 1. Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
 
-    **_Jawab_**:  
+    **_Jawab_**:
 
     JavaScript memiliki manfaat yang sangat besar dalam pengembangan aplikasi web, di antaranya adalah sebagai berikut.
 
@@ -73,7 +73,201 @@ http://daffa-abhipraya-kickstash.pbp.cs.ui.ac.id/
 
     **_Jawab_**:
 
-    XXX
+    1. Pertama, saya membuat fungsi untuk membuat product dengan menggunakan AJAX di `views.py`:
+
+    ```python
+    @csrf_exempt
+    @require_POST
+    def add_product_ajax(req):
+        name = strip_tags(req.POST.get("name"))
+        description = strip_tags(req.POST.get("description"))
+        price = req.POST.get("price")
+        stock = req.POST.get("stock")
+        user = req.user
+
+        new_product = Product(
+            name=name, description=description, price=price, stock=stock, user=user
+        )
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+    ```
+
+    Fungsi ini akan menerima _POST request_ dari AJAX dan membuat objek `Product` baru dengan data yang diterima. Tidak lupa, saya mematikan CSRF agar AJAX dapat mengirimkan _POST request_ di aplikasi Django.
+
+    Saya juga menambahkan _routing_ untuk fungsi ini di `urls.py` aplikasi `main`.
+
+    ```python
+    path("create-product-ajax", add_product_ajax, name="add_product_ajax"),
+    ```
+
+    2. Masih di `views.py`, saya menghapus beberapa bagian dari `show_main` _function_ yang tidak diperlukan, karena saya akan menggunakan _async_ function di `main.html` menggunakan AJAX.
+
+    Bagian yang saya hapus adalah
+
+    ```python
+    products = Product.objects.filter(user=req.user)
+    ...
+    context = {
+        ...
+        "products": products,
+        ...
+    }
+    ```
+
+    3. Melanjuti nomor 2, saya menambah _async_ function di `main.html` untuk me-_request_ data ke server menggunakan AJAX.
+
+    ```js
+    async function getProducts() {
+    	return fetch("{% url 'main:show_json' %}").then((res) => res.json());
+    }
+    ```
+
+    Lalu, fungsi ini akan digunakan untuk meng-_iterate_ setiap produk yang didapat, lalu memasukkan informasi setiap produk ke dalam sebuah `card_product`:
+
+    ```js
+    async function refreshProducts() {
+      document.getElementById('product_cards').innerHTML = '';
+      document.getElementById('product_cards').className = '';
+      const products = await getProducts();
+      let htmlString = '';
+      let classNameString = '';
+
+      if (products.length === 0) {
+        classNameString = 'w-full flex flex-col items-center justify-center space-y-2 !mb-12';
+        htmlString = `
+          <p>No products available.</p>
+          <img src="{% static 'image/noproduct.png' %}" alt="No product" class="w-[70px]" />
+        `;
+      } else {
+        classNameString = 'w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-6 gap-2 !mb-12';
+        products.forEach((item) => {
+          <!-- Wrap setiap produk dengan product card -->
+        });
+      }
+    }
+    ```
+
+    Karena sudah ada fungsi yang mengambil data produk dan me-_wrap_ setiap produk dengan _product card_, maka kode HTML bagian ini yang sebelumnya ada di `main.html` saya hapus, dan digantikan dengan _div_ yang akan diisi oleh produk yang didapat dari server, yaitu _div_ dengan `product_cards` sebagai ID.
+
+    4. Saya membuat tombol baru bertuliskan `Add Product (AJAX)` di `main.html` yang akan memunculkan modal ketika di-_click_.
+
+    ```html
+    <button class="bg-[#8957f6] hover:bg-opacity-100 hover:text-white bg-opacity-10 text-[#8957f6] border border-[#8957f6] font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform flex-row space-x-2 flex items-center justify-center add-button" data-modal-target="crudModal" data-modal-toggle="crudModal" onclick="showModal();">
+    	<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-plus">
+    		<path d="M16 16h6" />
+    		<path d="M19 13v6" />
+    		<path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" />
+    		<path d="m7.5 4.27 9 5.15" />
+    		<polyline points="3.29 7 12 12 20.71 7" />
+    		<line x1="12" x2="12" y1="22" y2="12" />
+    	</svg>
+    	<p>Add New Product (AJAX)</p>
+    </button>
+    ```
+
+    Dan ini adalah fungsi JS yang akan memunculkan modal ketika tombol di-_click_.
+
+    ```js
+    function showModal() {
+    	const modal = document.getElementById('crudModal');
+    	const modalContent = document.getElementById('crudModalContent');
+
+    	modal.classList.remove('hidden');
+    	setTimeout(() => {
+    		modalContent.classList.remove('opacity-0', 'scale-95');
+    		modalContent.classList.add('opacity-100', 'scale-100');
+    	}, 50);
+    }
+    ```
+
+    5. Setelah itu, saya membuat sebuah `modal` di `main.html` yang akan muncul ketika tombol `Add Product (AJAX)` di-_click_. Modal ini sudah saya sesuaikan dengan theme aplikasi yang saya terapkan.
+
+    ```html
+    <div id="crudModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
+    	<div id="crudModalContent" class="relative bg-[#1a1a1a] rounded-lg shadow-lg w-5/6 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-4 sm:mx-0 transform scale-95 opacity-0 transition-transform transition-opacity duration-300 ease-out">
+    		<!-- Modal header -->
+    		<div class="flex items-center justify-between p-4 rounded-t">
+    			<h3 class="text-xl font-semibold">Add New Product</h3>
+    			<button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" id="closeModalBtn">
+    				<svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    					<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+    				</svg>
+    				<span class="sr-only">Close modal</span>
+    			</button>
+    		</div>
+    		<!-- Modal body -->
+    		<div class="px-6 py-4 space-y-6 form-style">
+    			<form id="productForm">
+    				<div class="mb-4">
+    					<label for="name" class="block text-sm font-medium">Name</label>
+    					<input type="text" id="name" name="name" class="mt-1 block w-full border rounded-md p-2 hover:border-[#0b79f7]" placeholder="Enter your product name" required />
+    				</div>
+    				<div class="mb-4">
+    					<label for="description" class="block text-sm font-medium">Description</label>
+    					<textarea id="description" name="description" rows="3" class="mt-1 block w-full h-52 resize-none border rounded-md p-2 hover:border-[#0b79f7]" placeholder="Describe your product" required></textarea>
+    				</div>
+    				<div class="mb-4">
+    					<label for="price" class="block text-sm font-medium">Price (in IDR)</label>
+    					<input type="number" id="price" name="price" min="1" max="999999999999" class="mt-1 block w-full border rounded-md p-2 hover:border-[#0b79f7]" required />
+    				</div>
+    				<div class="mb-4">
+    					<label for="stock" class="block text-sm font-medium">Stock (minimum of 1)</label>
+    					<input type="number" id="stock" name="stock" min="1" max="999999999999" class="mt-1 block w-full border rounded-md p-2 hover:border-[#0b79f7]" required />
+    				</div>
+    			</form>
+    		</div>
+    		<!-- Modal footer -->
+    		<div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2 p-6 border-gray-200 rounded-b justify-center md:justify-end">
+    			<button type="button" class="flex items-center justify-center flex-row items-center justify-center rounded-lg py-1 space-x-1 transition duration-300 hover:bg-[#cccccc] hover:text-[#262626] border border-[#cccccc] px-3" id="cancelButton">Cancel</button>
+    			<button type="submit" id="submitProduct" form="productForm" class="flex items-center justify-center flex-row items-center justify-center rounded-lg px-3 py-1 space-x-1 transition duration-300 bg-yellow-600 hover:bg-opacity-100 hover:text-white bg-opacity-10 text-yellow-600 border border-yellow-600">Save</button>
+    		</div>
+    	</div>
+    </div>
+    ```
+
+    Tidak lupa, saya juga membuat fungsi untuk melakukan _close_ modal ketika tombol `X` atau `Cancel` di-_click_.
+
+    ```js
+    const modal = document.getElementById('crudModal');
+    const modalContent = document.getElementById('crudModalContent');
+
+    function hideModal() {
+    	const modal = document.getElementById('crudModal');
+    	const modalContent = document.getElementById('crudModalContent');
+
+    	modalContent.classList.remove('opacity-100', 'scale-100');
+    	modalContent.classList.add('opacity-0', 'scale-95');
+
+    	setTimeout(() => {
+    		modal.classList.add('hidden');
+    	}, 150);
+    }
+
+    document.getElementById('cancelButton').addEventListener('click', hideModal);
+    document.getElementById('closeModalBtn').addEventListener('click', hideModal);
+    ```
+
+    5. Terakhir, saya menerapkan fungsi untuk meng-_handle_ _submit_ form produk yang akan dikirimkan ke server menggunakan AJAX.
+
+    ```js
+    function addProduct() {
+    	fetch("{% url 'main:add_product_ajax' %}", {
+    		method: 'POST',
+    		body: new FormData(document.querySelector('#productForm')),
+    	}).then((response) => refreshProducts());
+
+    	document.getElementById('productForm').reset();
+    	hideModal();
+
+    	return false;
+    }
+
+    document.getElementById('productForm').addEventListener('submit', (e) => {
+    	e.preventDefault();
+    	addProduct();
+    });
+    ```
 
 ### Tugas 5 — Pertanyaan dan Jawaban
 
